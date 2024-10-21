@@ -1,10 +1,11 @@
-from bs4 import BeautifulSoup
+import bs4
 import os
 import sys
+import typing
 
 # Search for a tag who has a class 'class_name'
-def get_class(tag, class_name):
-    return tag.find_all("span", class_=class_name)
+def get_class(tag, class_name) -> bs4.Tag :
+    return tag.find("span", class_=class_name)
 
 class Document:
     """
@@ -22,18 +23,26 @@ class Document:
         """
         # open, read and close file
         fp = open(filename, "r")
-        soup = BeautifulSoup(fp, 'html.parser')
+        soup = bs4.BeautifulSoup(fp, 'html.parser')
         fp.close()
 
         # self.soup is a <html> tag object
         self.soup = soup
 
-    def get_entry_word(self):
+    def get_entry_word(self) -> str:
         """
         Get the keywords entered by the user
+        In french: Entrée
         """
         # find the 'entryWord' class
-        entry_word = get_class(self.soup, "entryWord")
+        entry_word_tag: bs4.Tag = get_class(self.soup, "entryWord")
+        # the result of the above expression is always in the format:
+        # <span class="entryWord">lako<u>zi</u>a<a class="entryWord" name="mg.n"> </a></span>
+        # ... so we need to flatten it
+        entry_word = ""
+        for child in entry_word_tag.children:
+            # append to result if 'child' is a NavigableString
+            entry_word += child if type(child) == bs4.element.NavigableString else child.string
         return entry_word
 
 
