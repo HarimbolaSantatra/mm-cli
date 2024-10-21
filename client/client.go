@@ -7,10 +7,10 @@ import (
 )
 
 func TestIt() {
-    endpoint := "https://ifconfig.me"
+    endpoint := "https://httpbin.org/get"
     resp, _ := http.Get(endpoint)
     defer resp.Body.Close()
     var ip_add []byte
     ip_add, _ = io.ReadAll(resp.Body)
-    fmt.Println("Your IP address is", string(ip_add))
+    fmt.Println(string(ip_add))
 }
