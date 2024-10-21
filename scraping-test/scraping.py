@@ -46,6 +46,38 @@ class Document:
         return entry_word
 
 
+    def get_tables(self) -> list:
+        """
+        Get all the tables in the <body>
+        We need to get all the tables because each line in the result is represented by a <table>
+
+        Returns
+        -------
+        list
+            Each row of the list has the format:
+                {
+                    "label": "Explication en malgache",
+                    "text": "Trano fanaovana nahandro"
+                }
+        """
+        tables: list = self.soup.find_all("table")
+        result = []
+
+        for table in tables[4:10]:
+            # table[4:] because we do not want to print the first 4 <table>,
+            # which is the navigation menu and some unknown BS!
+            # TODO: this needs a hard edit cuz that guy was fkn lazy!
+
+            new_entry = {}
+            # take a look at the html file (result.html) to understand this section
+            row = table.find("tr")
+            new_entry["label"] = row.contents[0].stripped_strings
+            new_entry["text"]  = "".join(row.contents[1].stripped_strings)
+            result.append(new_entry)
+
+        return result
+
+
 def main():
     html_filename = "result.html"
 
@@ -54,7 +86,11 @@ def main():
     filename = os.path.join(file_path, html_filename)
 
     doc = Document(filename)
-    print(doc.get_entry_word())
+    tables = doc.get_tables()
+    inc = 1
+    for table in tables:
+        print("{}- {}: {}".format(inc, table["label"], table["text"]))
+        inc += 1
 
 
 if __name__ == '__main__':
