@@ -1,6 +1,6 @@
 import bs4
-import os
-import sys
+import os, sys
+from rich.console import Console
 import typing
 
 # Search for a tag who has a class 'class_name'
@@ -28,6 +28,10 @@ class Document:
 
         # self.soup is a <html> tag object
         self.soup = soup
+
+        # 'rich' module for pretty printing
+        self.console = Console()
+
 
     def get_entry_word(self) -> str:
         """
@@ -86,8 +90,15 @@ class Document:
 
         return result
 
+    def print_table(self):
+        tables = self.get_result_pairs()
+        for table in tables:
+            self.console.print(table["label"], end="", style="green")
+            print(": {}".format(table["text"]))
+
 
 def main():
+
     html_filename = "result.html"
 
     # get path of the executable
@@ -95,11 +106,7 @@ def main():
     filename = os.path.join(file_path, html_filename)
 
     doc = Document(filename)
-    tables = doc.get_result_pairs()
-    inc = 1
-    for table in tables:
-        print("{}- {}: {}".format(inc, table["label"], table["text"]))
-        inc += 1
+    doc.print_table()
 
 
 if __name__ == '__main__':
