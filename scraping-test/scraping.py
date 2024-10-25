@@ -1,7 +1,13 @@
 import bs4
 import os, sys
-from rich.console import Console
 import typing
+
+try:
+    from rich.console import Console
+except ModuleNotFoundError:
+    print("'rich' is required! Maybe you forget to enable a virtual environment!")
+    sys.exit(1)
+
 
 # Search for a tag who has a class 'class_name'
 def get_class(tag, class_name) -> bs4.Tag :
@@ -59,13 +65,14 @@ class Document:
             Vocabulaire Economie: alimentation
 
         We need to get a table tag, which some particular attribute:
-            - cellspacing="4"
-            - width="100%"
+            - name="td"
+            - width="20%"
+            - align="right"
 
         Returns
         -------
         list
-            Each row of the list has the format:
+            Each row is a key-value pair:
                 {
                     "label": "Explication en malgache",
                     "text": "Trano fanaovana nahandro"
@@ -91,6 +98,9 @@ class Document:
         return result
 
     def print_table(self):
+        """
+        Pretty print the result of get_result_pairs()
+        """
         tables = self.get_result_pairs()
         for table in tables:
             self.console.print(table["label"], end="", style="green")
