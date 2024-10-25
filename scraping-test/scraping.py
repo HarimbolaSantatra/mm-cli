@@ -1,11 +1,20 @@
-import bs4
 import os, sys
 import typing
+
+def print_module_error(module_name):
+    print(f"{module_name} is required! Maybe you forget to enable a virtual environment!")
+
+try:
+    import bs4
+except ModuleNotFoundError:
+    print_module_error("bs4")
+    sys.exit(1)
+
 
 try:
     from rich.console import Console
 except ModuleNotFoundError:
-    print("'rich' is required! Maybe you forget to enable a virtual environment!")
+    print_module_error("rich")
     sys.exit(1)
 
 
