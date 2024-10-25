@@ -6,6 +6,7 @@ A cli client for [motmalgache.org][1].
 ## Setup
 Setup a python virtual environment:
 ```
+mkdir ~/.python-venv
 python3 -m venv ~/.python-venv/bs4
 source ~/.python-venv/bs4/bin/activate
 python3 -m pip install -r requirements.txt
