@@ -90,6 +90,9 @@ class Document:
             # take a look at the html file (result.html) to understand this section
             new_entry["label"] = table.string
 
+            # remove <span class="minute">
+            table.next_sibling.next_sibling.find("span", class_="minute").extract()
+
             # put next_sibling 2 times because look at https://www.crummy.com/software/BeautifulSoup/bs4/doc/#next-sibling-and-previous-sibling
             new_entry["text"]  = "".join(table.next_sibling.next_sibling.stripped_strings)
 
