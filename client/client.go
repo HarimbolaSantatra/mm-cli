@@ -6,11 +6,12 @@ import (
     "fmt"
 )
 
-func TestIt() {
-    endpoint := "https://ifconfig.me"
-    resp, _ := http.Get(endpoint)
+const baseUrl = "https://motmalgache.org/bins"
+var searchEndpoint = fmt.Sprintf("%s/teny2", baseUrl)
+
+func Search(keyword string) {
+    resp, _ := http.Get(searchEndpoint)
     defer resp.Body.Close()
-    var ip_add []byte
-    ip_add, _ = io.ReadAll(resp.Body)
-    fmt.Println("Your IP address is", string(ip_add))
+    respBody, _ := io.ReadAll(resp.Body)
+    fmt.Println(string(respBody))
 }
