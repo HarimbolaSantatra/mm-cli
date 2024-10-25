@@ -46,10 +46,17 @@ class Document:
         return entry_word
 
 
-    def get_tables(self) -> list:
+    def get_result_pairs(self) -> list:
         """
-        Get all the tables in the <body>
-        We need to get all the tables because each line in the result is represented by a <table>
+        Get all the pair of result.
+        e.g:
+            Entrée: lakozia
+            Partie du discours: nom
+            Vocabulaire Economie: alimentation
+
+        We need to get a table tag, which some particular attribute:
+            - cellspacing="4"
+            - width="100%"
 
         Returns
         -------
@@ -60,19 +67,21 @@ class Document:
                     "text": "Trano fanaovana nahandro"
                 }
         """
-        tables: list = self.soup.find_all("table")
+        tables: list = self.soup.find_all(name="td", width="20%", align="right")
         result = []
 
-        for table in tables[4:10]:
+        for table in tables:
             # table[4:] because we do not want to print the first 4 <table>,
             # which is the navigation menu and some unknown BS!
             # TODO: this needs a hard edit cuz that guy was fkn lazy!
 
             new_entry = {}
             # take a look at the html file (result.html) to understand this section
-            row = table.find("tr")
-            new_entry["label"] = row.contents[0].stripped_strings
-            new_entry["text"]  = "".join(row.contents[1].stripped_strings)
+            new_entry["label"] = table.string
+
+            # put next_sibling 2 times because look at https://www.crummy.com/software/BeautifulSoup/bs4/doc/#next-sibling-and-previous-sibling
+            new_entry["text"]  = "".join(table.next_sibling.next_sibling.stripped_strings)
+
             result.append(new_entry)
 
         return result
@@ -86,7 +95,7 @@ def main():
     filename = os.path.join(file_path, html_filename)
 
     doc = Document(filename)
-    tables = doc.get_tables()
+    tables = doc.get_result_pairs()
     inc = 1
     for table in tables:
         print("{}- {}: {}".format(inc, table["label"], table["text"]))
