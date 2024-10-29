@@ -89,7 +89,8 @@ class Document:
         tables: list = self.soup.find_all(name="td", width="20%", align="right")
         result = []
 
-        for table in tables:
+        for table in tables[:-1]:
+            # tables[:-1] because I removed the "Morphologie"
             # table[4:] because we do not want to print the first 4 <table>,
             # which is the navigation menu and some unknown BS!
             # TODO: this needs a hard edit cuz that guy was fkn lazy!
@@ -113,6 +114,7 @@ class Document:
         Pretty print the result of get_result_pairs()
         """
         tables = self.get_result_pairs()
+
         for table in tables:
             self.console.print(table["label"], end="", style="green")
             print(": {}".format(table["text"]))
