@@ -13,7 +13,7 @@ func init() {
 }
 
 var searchCmd = &cobra.Command{
-  Use:   "search",
+  Use:   "search KEYWORD",
   Short: "Search for a word",
   Run: func(cmd *cobra.Command, args []string) {
       if len(args) < 1 {
