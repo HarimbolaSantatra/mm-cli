@@ -36,6 +36,7 @@ func (data Data) Read(p []byte) (n int, err error) {
 }
 
 func Search(keyword string) {
+
     // Create Client
     client := &http.Client{
 	Timeout: time.Second * 15,
@@ -47,38 +48,16 @@ func Search(keyword string) {
     encodedData := data.Encode()
 
 
-    // Create Request
-    req, err := http.NewRequest("post", searchEndpoint, strings.NewReader(encodedData))
-    if err != nil {
-	log.Fatalf("Error on creating a 'Request': %s", err.Error())
-    }
-
-    parseErr := req.ParseForm()
-    if parseErr != nil {
-	log.Fatalf("Error on parsing form: %s", err.Error())
-    }
-
-    // Set request header
-    req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-
     // Make request
-    resp, err := client.Do(req)
+    resp, err := client.Post(searchEndpoint,
+	"application/x-www-form-urlencoded",
+	strings.NewReader(encodedData))
     if err != nil {
 	log.Fatalf("Request Error: %s", err.Error())
     }
 
-    // body, _ := io.ReadAll(resp.Body)
-    // fmt.Println(string(body))
-
-    // DEBUG
-    // print the form value of the request
-
-    bd := req.Form.Get("x")
-    fmt.Println(string(bd))
-    er, _ := io.ReadAll(strings.NewReader(encodedData))
-    fmt.Println(string(er))
-    he, _ := req.Header["Content-Type"]
-    fmt.Println(he)
+    body, _ := io.ReadAll(resp.Body)
+    fmt.Println(string(body))
 
     // Close
     defer resp.Body.Close()
