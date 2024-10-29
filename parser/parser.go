@@ -1,13 +1,15 @@
 package parser
 
 import (
-    "fmt"
+    "log"
     "os/exec"
 )
 
-func Run() {
-    cmd := exec.Command("ls", "-lh")
-    if err := cmd.Run(); err != nil {
-	fmt.Println("Error: ", err)
+func ParseString(s string) string {
+    cmd := exec.Command("./scraping", s)
+    bt, err := cmd.Output()
+    if err != nil {
+	log.Fatalf("Command execution error: ", err)
     }
+    return string(bt)
 }

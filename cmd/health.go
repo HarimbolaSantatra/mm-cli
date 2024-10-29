@@ -4,7 +4,6 @@ import (
     "fmt"
     "github.com/spf13/cobra"
     "mm/client"
-    "mm/parser"
 )
 
 func init() {
@@ -19,8 +18,7 @@ var healthCmd = &cobra.Command{
       if status != 0 {
 	  fmt.Println("Not okay!")
       } else {
-	  // fmt.Println("okay!")
-	  parser.Run()
+	  fmt.Println("okay!")
       }
   },
 }

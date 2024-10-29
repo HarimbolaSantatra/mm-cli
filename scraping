@@ -28,19 +28,17 @@ class Document:
     Represent a HTML document in response to a query from motmalagasy.org
     """
 
-    def __init__(self, filename):
+    def __init__(self, file_content):
         """
         Constructor
 
         Parameters
         ----------
-        filename: string
-            get the name of the HTML file
+        file_content: string
+            content of the HTML file
         """
-        # open, read and close file
-        fp = open(filename, "r")
-        soup = bs4.BeautifulSoup(fp, 'html.parser')
-        fp.close()
+
+        soup = bs4.BeautifulSoup(file_content, 'html.parser')
 
         # self.soup is a <html> tag object
         self.soup = soup
@@ -121,14 +119,14 @@ class Document:
 
 
 def main():
+    argv = sys.argv
 
-    html_filename = "scraping-test/result.html"
+    if len(argv) != 2:
+        print("Incorrect number of arguments!")
+        print("Usage: {} STRING".format(argv[0]))
+        sys.exit(1)
 
-    # get path of the executable
-    file_path = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(file_path, html_filename)
-
-    doc = Document(filename)
+    doc = Document(argv[1])
     doc.print_table()
 
 

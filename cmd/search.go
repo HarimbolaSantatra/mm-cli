@@ -6,6 +6,7 @@ import (
     "io"
     "mm/client"
     "os"
+    "mm/parser"
 )
 
 func init() {
@@ -21,9 +22,10 @@ var searchCmd = &cobra.Command{
 	  os.Exit(1)
       }
       if len(args) > 1 {
-	  fmt.Println("Warning: mm can only handle one keyword so it will only consider the first one!")
+	  fmt.Println("Warning: 'mm' can only handle one keyword so it will only consider the first one!")
       }
       htmlResult := client.Search(args[0])
-      fmt.Println(htmlResult)
+      parsed := parser.ParseString(htmlResult)
+      fmt.Println(parsed)
   },
 }
