@@ -121,7 +121,7 @@ class Document:
 
 def main():
 
-    html_filename = "post-result.html"
+    html_filename = "scraping-test/result.html"
 
     # get path of the executable
     file_path = os.path.dirname(os.path.abspath(__file__))
