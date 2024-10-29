@@ -23,6 +23,7 @@ var searchCmd = &cobra.Command{
       if len(args) > 1 {
 	  fmt.Println("Warning: mm can only handle one keyword so it will only consider the first one!")
       }
-      client.Search(args[0])
+      htmlResult := client.Search(args[0])
+      fmt.Println(htmlResult)
   },
 }

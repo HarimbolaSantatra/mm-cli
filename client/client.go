@@ -35,7 +35,7 @@ func (data Data) Read(p []byte) (n int, err error) {
     return len(p), err
 }
 
-func Search(keyword string) {
+func Search(keyword string) string {
 
     // Create Client
     client := &http.Client{
@@ -57,8 +57,9 @@ func Search(keyword string) {
     }
 
     body, _ := io.ReadAll(resp.Body)
-    fmt.Println(string(body))
 
     // Close
     defer resp.Body.Close()
+
+    return string(body)
 }
