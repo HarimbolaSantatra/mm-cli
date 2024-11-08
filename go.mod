@@ -14,3 +14,5 @@ replace mm/cmd => ./cmd
 replace mm/client => ./client
 
 replace mm/parser => ./parser
+
+replace mm/utils => ./utils
