@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+
+# This script print in stdout a JSON data 
+# of the result of the web scraping
+
 import os, sys, json
 import typing
 
