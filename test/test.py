@@ -1,3 +1,5 @@
+# Test the HTML scraper
+
 import unittest
 import subprocess
 import json
@@ -34,7 +36,10 @@ class TestScraping(unittest.TestCase):
             jsfile = json.load(f)
 
         # Assert each field of the json file
+        self.assertEqual(jsfile["Partie du discours\u00a0"], "nom")
         self.assertEqual(jsfile["Vocabulaire\u00a0"], "Economie: alimentation")
+        self.assertEqual(jsfile["Explications en malgache\u00a0"], "Trano fanaovana nahandro:Tsy miala ao an-dakozia foana io saka io[1.1]")
+        self.assertEqual(jsfile["Explications en fran\u00e7ais\u00a0"], "cuisine[1.3]")
 
 if __name__ == '__main__':
     unittest.main()
