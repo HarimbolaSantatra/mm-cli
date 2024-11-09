@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Test if the required package are used or the right virtual environment is used
+
+python -m pip list | grep bs4 > /dev/null 2>&1
