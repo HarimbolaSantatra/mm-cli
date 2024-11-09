@@ -35,6 +35,9 @@ func (data Data) Read(p []byte) (n int, err error) {
     return len(p), err
 }
 
+// Make a request to motmalgache.org
+// Input: string, a search keyword
+// Return: string, the html content of the result
 func Search(keyword string) string {
 
     // Create Client
