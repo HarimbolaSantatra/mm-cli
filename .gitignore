@@ -3,3 +3,5 @@ Session.vim
 
 # default output
 mm
+# temp
+test/tmp.*

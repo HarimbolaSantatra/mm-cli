@@ -10,13 +10,19 @@ if [ $# -eq 1 ]; then
     fi
 fi
 
+echo ""
+echo "==== Testing python-env ===="
+
 if python -m pip list | grep bs4 > /dev/null 2>&1; then
     echo "bs4 is installed!"
-    exit 0
+    s=0
 else
     if [ $verbose = true ]; then
 	echo "bs4 is not installed!"
 	echo "Maybe you forgot to activate a virtual environment or to install requirements.txt"
     fi
-    exit 1
+    s=1
 fi
+echo "==== end test ===="
+echo ""
+exit $s

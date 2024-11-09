@@ -6,7 +6,6 @@ import (
     "io"
     "mm/client"
     "os"
-    "mm/parser"
 )
 
 func init() {
@@ -25,7 +24,7 @@ var searchCmd = &cobra.Command{
 	  fmt.Println("Warning: 'mm' can only handle one keyword so it will only consider the first one!")
       }
       htmlResult := client.Search(args[0])
-      parsed := parser.ParseString(htmlResult)
-      fmt.Println(parsed)
+      parsed := client.ParseString(htmlResult) // `parsed` contains a JSON
+      fmt.Println(parsed) // Print the JSON format in stdout
   },
 }
