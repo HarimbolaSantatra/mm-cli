@@ -2,4 +2,21 @@
 
 # Test if the required package are used or the right virtual environment is used
 
-python -m pip list | grep bs4 > /dev/null 2>&1
+# Verbose mode
+verbose=false
+if [ $# -eq 1 ]; then
+    if [ "$1" = "-v" ] || [ "$1" = "--verbose" ]; then
+	verbose=true
+    fi
+fi
+
+if python -m pip list | grep bs4 > /dev/null 2>&1; then
+    echo "bs4 is installed!"
+    exit 0
+else
+    if [ $verbose = true ]; then
+	echo "bs4 is not installed!"
+	echo "Maybe you forgot to activate a virtual environment or to install requirements.txt"
+    fi
+    exit 1
+fi
