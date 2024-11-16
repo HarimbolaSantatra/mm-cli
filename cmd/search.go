@@ -4,8 +4,10 @@ import (
     "fmt"
     "github.com/spf13/cobra"
     "io"
+    "log"
     "mm/client"
     "os"
+    "encoding/json"
 )
 
 func init() {
@@ -24,7 +26,28 @@ var searchCmd = &cobra.Command{
 	  fmt.Println("Warning: 'mm' can only handle one keyword so it will only consider the first one!")
       }
       htmlResult := client.Search(args[0])
-      parsed := client.ParseString(htmlResult) // `parsed` contains a JSON
-      fmt.Println(parsed) // Print the JSON format in stdout
+      jsonStr := client.ParseString(htmlResult) // `jsonStr` contains a JSON
+
+      // Decoding content of the JSON
+      // we are decoding arbitrary data because the JSON contains unicode chars
+      // See https://go.dev/blog/json#decoding-arbitrary-data
+      var fmtResp interface{}
+      jsonErr := json.Unmarshal([]byte(jsonStr), &fmtResp)
+      if jsonErr != nil {
+	  log.Printf("Error in JSON content:\n%s\n", string([]byte(jsonStr)))
+	  log.Fatalf("Misy erreur ny JSON anao!: %s\n", jsonErr)
+      }
+
+      // Print the result
+      m := fmtResp.(map[string]interface{})
+      for k, v := range m {
+	  switch vv := v.(type) {
+	  case string:
+	      fmt.Println(k, ": ", vv)
+	  default:
+	      fmt.Println(k, "dia type tsy mbola hitako hatrizay niainana!")
+	  }
+      }
+
   },
 }
