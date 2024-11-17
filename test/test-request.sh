@@ -1,4 +1,5 @@
 #!/bin/bash
+# Make a test request to motmalgache.org
 
 BASE_URL="https://motmalgache.org/bins"
 SEARCH_ENDPOINT="${BASE_URL}/teny2"
