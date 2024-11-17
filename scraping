@@ -22,9 +22,12 @@ except ModuleNotFoundError:
     sys.exit(2)
 
 
-# Search for a tag who has a class 'class_name'
 def get_class(tag, class_name) -> bs4.Tag :
+    """
+    Search for a tag who has a class 'class_name'
+    """
     return tag.find("span", class_=class_name)
+
 
 class Document:
     """
