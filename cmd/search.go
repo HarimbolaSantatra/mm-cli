@@ -55,12 +55,19 @@ var searchCmd = &cobra.Command{
 		  fmt.Println(strings.Replace(vv, ",\n", "\n\t- ", -1))
 	      } else {
 
-		  // Remove 'Mots composés' because it's too long!
+		  // Remove section 'Mots composés' because it's too long!
 		  // Maybe handle this in the future if I'm not lazy!
 		  if(strings.Compare(trimedK, "Mots composés") != 0) {
-		      utils.PrintLineTitle(trimedK, vv)
-		  }
 
+		      // Split into multiple line for section 'Analogues'
+		      if(strings.Compare(trimedK, "Analogues") == 0) {
+			  utils.PrintLineTitle(trimedK, "")
+			  fmt.Println(strings.Replace(vv, ",", "\n\t- ", -1))
+		      } else {
+			  utils.PrintLineTitle(trimedK, vv)
+		      }
+
+		  }
 	      }
 
 
