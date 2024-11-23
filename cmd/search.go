@@ -6,6 +6,7 @@ import (
     "io"
     "log"
     "mm/client"
+    "mm/utils"
     "os"
     "encoding/json"
     "strings"
@@ -14,16 +15,6 @@ import (
 func init() {
     rootCmd.AddCommand(searchCmd)
 }
-
-var Reset = "\033[0m" 
-var Red = "\033[31m" 
-var Green = "\033[32m" 
-var Yellow = "\033[33m" 
-var Blue = "\033[34m" 
-var Magenta = "\033[35m" 
-var Cyan = "\033[36m" 
-var Gray = "\033[37m" 
-var White = "\033[97m"
 
 var searchCmd = &cobra.Command{
   Use:   "search KEYWORD",
@@ -57,11 +48,11 @@ var searchCmd = &cobra.Command{
 	  case string:
 
 	      // 'Morphologie' contains multiple strings
-	      if(strings.Compare(trimedK, "Morphologie") != 0) {
-		  fmt.Println(Green + trimedK + ": " + Reset + vv)
-	      } else {
-		  fmt.Println(Green + trimedK + ":", Reset)
+	      if(strings.Compare(trimedK, "Morphologie") == 0) {
+		  utils.PrintLineTitle(trimedK, "")
 		  fmt.Println(strings.Replace(vv, ",\n", "\n\t- ", -1))
+	      } else {
+		  utils.PrintLineTitle(trimedK, vv)
 	      }
 
 	  default:
