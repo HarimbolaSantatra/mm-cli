@@ -54,4 +54,8 @@ Use "mm [command] --help" for more information about a command.
 
 - Search for a word: `./mm search "rafozana"`
 
+## Acknowledgment
+- Banner made with [ascii-banner](https://manytools.org/hacker-tools/ascii-banner/) - *Banner* font
+- [Monde Malgache's contributors](https://motmalgache.org/bins/contributors)
+
 [1]: https://motmalgache.org/bins/homePage
