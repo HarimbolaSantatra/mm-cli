@@ -16,10 +16,12 @@ func init() {
     rootCmd.AddCommand(searchCmd)
 }
 
+
 var searchCmd = &cobra.Command{
   Use:   "search KEYWORD",
   Short: "Search for a word",
   Run: func(cmd *cobra.Command, args []string) {
+      utils.PrintBanner()
       if len(args) < 1 {
 	  io.WriteString(os.Stderr, "You need to enter a search keyword!")
 	  os.Exit(1)
@@ -59,6 +61,8 @@ var searchCmd = &cobra.Command{
 	      fmt.Println(k, " dia type tsy mbola hitako hatr@izay niainana!")
 	  }
       }
+
+      utils.PrintRuler()
 
   },
 }
