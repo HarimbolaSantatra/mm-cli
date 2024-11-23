@@ -54,8 +54,15 @@ var searchCmd = &cobra.Command{
 		  utils.PrintLineTitle(trimedK, "")
 		  fmt.Println(strings.Replace(vv, ",\n", "\n\t- ", -1))
 	      } else {
-		  utils.PrintLineTitle(trimedK, vv)
+
+		  // Remove 'Mots composés' because it's too long!
+		  // Maybe handle this in the future if I'm not lazy!
+		  if(strings.Compare(trimedK, "Mots composés") != 0) {
+		      utils.PrintLineTitle(trimedK, vv)
+		  }
+
 	      }
+
 
 	  default:
 	      fmt.Println(k, " dia type tsy mbola hitako hatr@izay niainana!")
