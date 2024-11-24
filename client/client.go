@@ -16,9 +16,13 @@ var searchEndpoint = fmt.Sprintf("%s/teny2", baseUrl)
 
 func Health() int {
     resp, err := http.Get(homepageEnd)
+    if err != nil {
+	log.Fatalf("Error in making request: %s", err)
+    }
     var resCode int;
-    if resp.StatusCode > 299 || err != nil {
-	resCode = 1
+    if resp.StatusCode > 299 {
+	resCode = 3
+	log.Printf("Status code was %d", resp.StatusCode)
     } else {
 	resCode = 0
     }
