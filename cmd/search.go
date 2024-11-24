@@ -51,8 +51,7 @@ var searchCmd = &cobra.Command{
 
 	      // 'Morphologie' contains multiple strings
 	      if(strings.Compare(trimedK, "Morphologie") == 0) {
-		  utils.PrintLineTitle(trimedK, "")
-		  fmt.Println(strings.Replace(vv, ",\n", "\n\t- ", -1))
+		  utils.PrintUnList(trimedK, vv)
 	      } else {
 
 		  // Remove section 'Mots composés' because it's too long!
@@ -61,9 +60,9 @@ var searchCmd = &cobra.Command{
 
 		      // Split into multiple line for section 'Analogues'
 		      if(strings.Compare(trimedK, "Analogues") == 0) {
-			  utils.PrintLineTitle(trimedK, "")
-			  fmt.Println(strings.Replace(vv, ",", "\n\t- ", -1))
+			  utils.PrintUnList(trimedK, vv)
 		      } else {
+			  // Default print mode for all section except these mentioned above
 			  utils.PrintLineTitle(trimedK, vv)
 		      }
 

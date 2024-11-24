@@ -51,3 +51,9 @@ func PrintLineTitle(title string, content string) {
 	fmt.Println(Green + title + ": " + Reset + content)
     }
 }
+
+// Print in Unordered List format
+func PrintUnList(title, content string) {
+    PrintLineTitle(title, "")
+    fmt.Println(strings.Replace(content, ",\n", "\n\t- ", -1))
+}
