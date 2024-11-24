@@ -18,19 +18,25 @@ class TestScraping(unittest.TestCase):
         # Create and run commands
         # Full command is "cat scraping-test/result.html | xargs -0 ./scraping"
         cat_process = subprocess.Popen(["cat", HTML_TESTFILE],
-                               stderr=subprocess.PIPE, stdout=subprocess.PIPE,
-                               text=True)
+                                       stdout=subprocess.PIPE,
+                                       text=True)
         xarg_process = subprocess.Popen(["xargs", "-0", "./scraping"],
-                                stdin=cat_process.stdout,
-                                stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                                text=True)
+                                        stdin=cat_process.stdout,
+                                        stdout=subprocess.DEVNULL,
+                                        stderr=None,
+                                        text=True)
+
         try:
             output, error = xarg_process.communicate(timeout=15)
+            xarg_process.kill()
         except TimeoutExpired:
+            cat_process.stdout.close()
+            cat_process.kill()
             xarg_process.kill()
             print("Timeout for xargs process")
             sys.exit(1)
 
+        cat_process.stdout.close()
         cat_process.kill()
 
 
