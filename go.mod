@@ -12,3 +12,5 @@ require (
 replace mm/cmd => ./cmd
 
 replace mm/client => ./client
+
+replace mm/utils => ./utils

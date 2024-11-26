@@ -6,18 +6,22 @@ import (
     "io"
     "log"
     "mm/client"
+    "mm/utils"
     "os"
     "encoding/json"
+    "strings"
 )
 
 func init() {
     rootCmd.AddCommand(searchCmd)
 }
 
+
 var searchCmd = &cobra.Command{
   Use:   "search KEYWORD",
   Short: "Search for a word",
   Run: func(cmd *cobra.Command, args []string) {
+      utils.PrintBanner()
       if len(args) < 1 {
 	  io.WriteString(os.Stderr, "You need to enter a search keyword!")
 	  os.Exit(1)
@@ -41,13 +45,37 @@ var searchCmd = &cobra.Command{
       // Print the result
       m := fmtResp.(map[string]interface{})
       for k, v := range m {
+	  trimedK := strings.TrimSpace(k) // Remove enventual whitespaces
 	  switch vv := v.(type) {
 	  case string:
-	      fmt.Println(k, ": ", vv)
+
+	      // 'Morphologie' contains multiple strings
+	      if(strings.Compare(trimedK, "Morphologie") == 0) {
+		  utils.PrintUnList(trimedK, vv)
+	      } else {
+
+		  // Remove section 'Mots composés' because it's too long!
+		  // Maybe handle this in the future if I'm not lazy!
+		  if(strings.Compare(trimedK, "Mots composés") != 0) {
+
+		      // Split into multiple line for section 'Analogues'
+		      if(strings.Compare(trimedK, "Analogues") == 0) {
+			  utils.PrintUnList(trimedK, vv)
+		      } else {
+			  // Default print mode for all section except these mentioned above
+			  utils.PrintLineTitle(trimedK, vv)
+		      }
+
+		  }
+	      }
+
+
 	  default:
-	      fmt.Println(k, "dia type tsy mbola hitako hatrizay niainana!")
+	      fmt.Println(k, " dia type tsy mbola hitako hatr@izay niainana!")
 	  }
       }
+
+      utils.PrintRuler()
 
   },
 }

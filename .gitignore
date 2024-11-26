@@ -5,3 +5,5 @@ Session.vim
 mm
 # temp
 test/tmp.*
+*.tmp
+*.temp

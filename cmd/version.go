@@ -3,6 +3,7 @@ package cmd
 import (
     "fmt"
     "github.com/spf13/cobra"
+    "mm/utils"
 )
 
 func init() {
@@ -13,7 +14,6 @@ var versionCmd = &cobra.Command{
   Use:   "version",
   Short: "Print version number",
   Run: func(cmd *cobra.Command, args []string) {
-      version := "0.1b"
-      fmt.Println("Version is", version)
+      fmt.Println("Version is", utils.GetVersion())
   },
 }
