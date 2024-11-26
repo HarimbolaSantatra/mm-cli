@@ -12,14 +12,14 @@ try:
     import bs4
 except ModuleNotFoundError:
     print_module_error("bs4")
-    sys.exit(1)
+    sys.exit(2)
 
 
 try:
     from rich.console import Console
 except ModuleNotFoundError:
     print_module_error("rich")
-    sys.exit(2)
+    sys.exit(3)
 
 
 def get_class(tag, class_name) -> bs4.Tag :
@@ -124,7 +124,7 @@ def main():
     if len(argv) != 2:
         print("Incorrect number of arguments!")
         print("Usage: {} STRING".format(argv[0]))
-        sys.exit(3)
+        sys.exit(1)
 
     doc = Document(argv[1])
     print(doc.print_table())
