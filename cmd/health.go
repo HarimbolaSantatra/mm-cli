@@ -16,7 +16,7 @@ var healthCmd = &cobra.Command{
   Run: func(cmd *cobra.Command, args []string) {
       status := client.Health()
       if status != 0 {
-	  fmt.Println("Not okay!")
+	  fmt.Printf("Not okay! Exit code is %d", status)
       } else {
 	  fmt.Println("okay!")
       }
