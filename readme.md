@@ -3,6 +3,9 @@
 
 For a translator, see [translate-shell](https://github.com/soimort/translate-shell).
 
+## Screenshot
+![screenshot](screenshot.png)
+
 ## Setup
 1. Setup a python virtual environment:
 ```
