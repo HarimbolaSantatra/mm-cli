@@ -16,11 +16,11 @@ class TestScraping(unittest.TestCase):
     def test_scraper(self):
 
         # Create and run commands
-        # Full command is "cat scraping-test/result.html | xargs -0 ./scraping"
+        # Full command is "cat scraping-test/result.html | xargs -0 ./mm-scraping"
         cat_process = subprocess.Popen(["cat", HTML_TESTFILE],
                                        stdout=subprocess.PIPE,
                                        text=True)
-        xarg_process = subprocess.Popen(["xargs", "-0", "./scraping"],
+        xarg_process = subprocess.Popen(["xargs", "-0", "./mm-scraping"],
                                         stdin=cat_process.stdout,
                                         stdout=subprocess.DEVNULL,
                                         stderr=None,

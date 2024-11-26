@@ -8,7 +8,7 @@ import (
 )
 
 // Get a HTML formatted string and return the JSON format
-// This function uses the python script `./scraping` to do that.
+// This function uses the python script `./mm-scraping` to do that.
 // Input: a string in HTML format
 // Output: the response of the request in JSON format
 func ParseString(s string) string {
@@ -18,7 +18,7 @@ func ParseString(s string) string {
 	log.Fatal(err)
     }
 
-    exPath := filepath.Join(basePath, "scraping")
+    exPath := filepath.Join(basePath, "mm-scraping")
 
     cmd := exec.Command(exPath, s)
     bt, err := cmd.Output()
