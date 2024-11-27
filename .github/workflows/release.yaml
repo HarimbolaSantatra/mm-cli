@@ -2,27 +2,21 @@ on:
   push:
     tags:
       - "*"
-    # on test branch
-    branches:
-      - iss28
 
 permissions:
     contents: write
 
 jobs:
   release:
-    name: release on linux
+    name: release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Fetch all tags
-        run: git fetch --force --tags
-          
       - name: Set up Go
         uses: actions/setup-go@v5
-        with:
-          go-version: '>=1.20.0'
 
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
