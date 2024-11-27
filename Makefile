@@ -19,7 +19,7 @@ install: $(OUT)
 
 .PHONY: test
 test:
-	./test/test-python-env
+	./test/test-python-env --verbose
 	python3 test/test.py
 	./test/website-change.sh
 

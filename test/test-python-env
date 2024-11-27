@@ -11,10 +11,12 @@ if [ $# -eq 1 ]; then
 fi
 
 echo ""
-echo "==== Testing python-env ===="
+echo "Testing python-env ..."
 
 if python -m pip list | grep bs4 > /dev/null 2>&1; then
-    echo "bs4 is installed!"
+    if [ $verbose = true ]; then
+	echo "bs4 is installed!"
+    fi
     s=0
 else
     if [ $verbose = true ]; then
@@ -23,6 +25,5 @@ else
     fi
     s=1
 fi
-echo "==== end test ===="
 echo ""
 exit $s

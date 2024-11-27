@@ -1,7 +1,7 @@
 # Test the HTML scraper
 # Test if the scraper needs an update.
 # That's the case only if the website has been updated by the admin
-# and it's not in the same structure anymore.
+# and it does not have the same HTML layout anymore.
 
 import unittest
 import subprocess
