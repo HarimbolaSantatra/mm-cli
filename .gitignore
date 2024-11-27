@@ -7,3 +7,5 @@ mm
 test/tmp.*
 *.tmp
 *.temp
+
+dist/
