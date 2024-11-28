@@ -1,3 +1,4 @@
+DIST		= dist
 INSTALL		= $(HOME)/.local/bin
 scrap_script 	= mm-scraping
 installed	= $(INSTALL)/$(scrap_script) $(INSTALL)/$(OUT)
@@ -11,6 +12,7 @@ mm:
 clean:
 	-@rm $(OUT) 2>/dev/null
 	-@rm $(TMPDIR)/tmp.* 2>/dev/null
+	-@rm -r $(DIST)/* 2>/dev/null
 
 .PHONY: install
 install: $(OUT)
