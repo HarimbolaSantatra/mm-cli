@@ -19,14 +19,20 @@ func LogPythonError(module string) {
 // Output: the response of the request in JSON format
 func ParseString(s string) string {
 
+    const scrapingEx = "mm-scraping" // Name of the scraping executable
+
     basePath, err := os.Getwd()
     if err != nil {
 	log.Fatal(err)
     }
 
-    exPath := filepath.Join(basePath, "mm-scraping")
+    exPath := filepath.Join(basePath, scrapingEx)
 
     cmd := exec.Command(exPath, s)
+    if cmd.Err != nil {
+	log.Fatalf("Error in executing %s: %s", scrapingEx, cmd.Err.Error())
+    }
+
     bt, err := cmd.Output()
     if err != nil {
 	if err.Error() == "exit status 2" {
