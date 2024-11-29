@@ -38,6 +38,11 @@ var searchCmd = &cobra.Command{
       var fmtResp interface{}
       jsonErr := json.Unmarshal([]byte(jsonStr), &fmtResp)
       if jsonErr != nil {
+
+	  // TODO: print this only if `--debug` flag is provided
+	  // See #34
+	  log.Printf("HTML file:\n%s\n", htmlResult)
+
 	  log.Printf("Error in JSON content:\n%s\n", string([]byte(jsonStr)))
 	  log.Fatalf("Misy erreur ny JSON anao!: %s\n", jsonErr)
       }
