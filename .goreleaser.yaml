@@ -40,6 +40,12 @@ archives:
       - goos: windows
         format: zip
 
+    files:
+      - readme.md
+      - mm-scraping
+      - CHANGELOG*
+      - license*
+
 changelog:
   sort: asc
   filters:
