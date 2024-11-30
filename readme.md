@@ -1,5 +1,5 @@
 # MMCLI
-**MMCLI** is a command line malagasy encyclopedia and dictionary. It uses [motmalgache.org][1] under the hood.
+**MMCLI** is a command line malagasy encyclopedia and dictionary. It makes a request to [motmalgache.org][1] and use [Beautiful Soup][2] to parse the HTML result.
 
 For a translator, see [translate-shell](https://github.com/soimort/translate-shell).
 
@@ -9,6 +9,8 @@ For a translator, see [translate-shell](https://github.com/soimort/translate-she
 ## Setup
 
 ### From source
+Go is required. Follow the [installation instructions](https://go.dev/doc/install) if it's not installed yet.
+
 1. Clone the repo: `git clone https://github.com/HarimbolaSantatra/mm-cli`
 2. Setup a python virtual environment:
 ```
@@ -72,3 +74,4 @@ Use "mm [command] --help" for more information about a command.
 - [Monde Malgache's contributors](https://motmalgache.org/bins/contributors)
 
 [1]: https://motmalgache.org/bins/homePage
+[2]: https://www.crummy.com/software/BeautifulSoup/bs4/doc/
