@@ -3,6 +3,7 @@ package utils
 import (
     "fmt"
     "strings"
+    "regexp"
 )
 
 var Reset = "\033[0m" 
@@ -44,16 +45,28 @@ func PrintBanner() {
     PrintRuler()
 }
 
+// Remove source reference (format `[...]` from a string) and numbers
+// Input: string
+// Return a new string
+func Clean(txt string) string {
+    const rx = "\\[.+?\\]|\\d+?" // regex for [..] and numbers
+    re := regexp.MustCompile(rx)
+    return re.ReplaceAllString(txt, "")
+}
+
+// Print a simple line
 func PrintLineTitle(title string, content string) {
     if strings.Compare(content, "") == 0 {
+	// just print the title in green
 	fmt.Println(Green + title + ":", Reset)
     } else {
-	fmt.Println(Green + title + ": " + Reset + content)
+	// print the title and the content
+	fmt.Println(Green + title + ": " + Reset + Clean(content))
     }
 }
 
 // Print in Unordered List format
 func PrintUnList(title, content string) {
     PrintLineTitle(title, "")
-    fmt.Println(strings.Replace(content, ",\n", "\n\t- ", -1))
+    fmt.Println(Clean(strings.Replace(content, ",\n", "\n\t- ", -1)))
 }
