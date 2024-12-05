@@ -102,7 +102,9 @@ class Document:
             # TODO: this needs a hard edit cuz that guy was fkn lazy!
 
             # remove <span class="minute">
-            table.next_sibling.next_sibling.find("span", class_="minute").extract()
+            minute = table.next_sibling.next_sibling.find("span", class_="minute")
+            if minute != None:
+                minute.extract()
 
             # take a look at the html file (result.html) to understand this section
             # put next_sibling 2 times because look at https://www.crummy.com/software/BeautifulSoup/bs4/doc/#next-sibling-and-previous-sibling
