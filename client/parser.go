@@ -14,12 +14,12 @@ func LogPythonError(module string) {
 
 
 // Get a HTML formatted string and return the JSON format
-// This function uses the python script `./mm-scraping` to do that.
+// This function uses the python script `./mm-parsing` to do that.
 // Input: a string in HTML format
 // Output: the response of the request in JSON format
 func ParseString(s string) string {
 
-    const scrapingEx = "mm-scraping" // Name of the scraping executable
+    const scrapingEx = "mm-parsing" // Name of the scraping executable
 
     basePath, err := os.Getwd()
     if err != nil {

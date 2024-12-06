@@ -1,6 +1,6 @@
 DIST		= dist
 INSTALL		= $(HOME)/.local/bin
-scrap_script 	= mm-scraping
+scrap_script 	= mm-parsing
 installed	= $(INSTALL)/$(scrap_script) $(INSTALL)/$(OUT)
 OUT 		= mm
 TMPDIR 		= test/

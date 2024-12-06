@@ -16,10 +16,10 @@ temp1="$(mktemp -p $test_dir --suffix=ASSUMED)"
 temp2="$(mktemp -p $test_dir --suffix=CURRENT)"
 
 # Assumed version
-cat ${rel_dir}/scraping-test/result.html | xargs -0 ${rel_dir}/mm-scraping > $temp1
+cat ${rel_dir}/scraping-test/result.html | xargs -0 ${rel_dir}/mm-parsing > $temp1
 
 # Current version
-${rel_dir}/test/test-request.sh | xargs -0 ${rel_dir}/mm-scraping > $temp2
+${rel_dir}/test/test-request.sh | xargs -0 ${rel_dir}/mm-parsing > $temp2
 
 # beautify temp files
 python3 -m json.tool $temp1 $temp1

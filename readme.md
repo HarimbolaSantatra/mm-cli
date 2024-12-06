@@ -34,7 +34,7 @@ make
 
 ### From the release
 1. Download [the latest release](https://github.com/HarimbolaSantatra/mm-cli/releases/latest) and copy
-**BOTH** the binary (`mm`) and the scraping script (`mm-scraping`) to your
+**BOTH** the binary (`mm`) and the scraping script (`mm-parsing`) to your
 PATH.
 2. Setup a python virtual environment (View above step)
 3. `./mm health`
