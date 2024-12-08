@@ -10,7 +10,7 @@ import (
 func PrintResult(fmtResp interface{}) {
     m := fmtResp.(map[string]interface{})
     for k, v := range m {
-	trimedK := strings.TrimSpace(k) // Remove enventual whitespaces
+	trimedK := strings.TrimSpace(k) // Remove eventual whitespaces
 	switch vv := v.(type) {
 	case string:
 
@@ -26,6 +26,9 @@ func PrintResult(fmtResp interface{}) {
 		    // Split into multiple line for section 'Analogues'
 		    if(strings.Compare(trimedK, "Analogues") == 0) {
 			PrintUnList(trimedK, vv)
+		    } else if strings.Compare(trimedK, "Morphologie") == 0 {
+			// Section `Morphologie` contains a sub section
+			fmt.Println("eto ny section Morphologie!")
 		    } else {
 			// Default print mode for all section except these mentioned above
 			PrintLineTitle(trimedK, vv)
