@@ -37,6 +37,11 @@ var searchCmd = &cobra.Command{
       // See https://go.dev/blog/json#decoding-arbitrary-data
       var fmtResp interface{}
       jsonErr := json.Unmarshal([]byte(jsonStr), &fmtResp)
+
+      if Debug {
+	  log.Printf("JSON result:\n%s\n", jsonStr)
+      }
+
       if jsonErr != nil {
 
 	  if Debug {
