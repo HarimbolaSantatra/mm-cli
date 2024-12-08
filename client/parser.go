@@ -13,8 +13,7 @@ func LogPythonError(module string) {
 }
 
 
-// Get a HTML formatted string and return the JSON format
-// This function uses the python script `./mm-parsing` to do that.
+// Use `./mm-parsing` to get a HTML formatted string and return the JSON format
 // Input: a string in HTML format
 // Output: the response of the request in JSON format
 func ParseString(s string) string {
