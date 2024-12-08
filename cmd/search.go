@@ -20,7 +20,11 @@ var searchCmd = &cobra.Command{
   Use:   "search KEYWORD",
   Short: "Search for a word",
   Run: func(cmd *cobra.Command, args []string) {
-      utils.PrintBanner()
+
+      if !Debug {
+	  utils.PrintBanner()
+      }
+
       if len(args) < 1 {
 	  io.WriteString(os.Stderr, "You need to enter a search keyword!")
 	  os.Exit(1)
@@ -52,7 +56,7 @@ var searchCmd = &cobra.Command{
       }
 
       // Print the result
-      utils.PrintResult(fmtResp)
+      utils.PrintResult(fmtResp, Debug)
 
       utils.PrintRuler()
 
