@@ -2,13 +2,15 @@ package utils
 
 import (
     "fmt"
-    "strings"
+    "log"
     "regexp"
+    "strings"
 )
 
 var Reset = "\033[0m" 
 var Red = "\033[31m" 
 var Green = "\033[32m" 
+var BrightGreen = "\033[92m" 
 var White = "\033[97m"
 
 const banner = `
@@ -54,19 +56,53 @@ func Clean(txt string) string {
     return re.ReplaceAllString(txt, "")
 }
 
-// Print a simple line
-func PrintLineTitle(title string, content string) {
+// Print a simple line with a title in bold and a content in normal text
+func PrintLineTitle(title, content string) string {
     if strings.Compare(content, "") == 0 {
 	// just print the title in green
-	fmt.Println(Green + title + ":", Reset)
+	return fmt.Sprintf(Green + title + ":", Reset)
     } else {
 	// print the title and the content
-	fmt.Println(Green + title + ": " + Reset + Clean(content))
+	return fmt.Sprintf(Green + title + ": " + Reset + Clean(content))
+    }
+}
+
+// TODO: put this section and the last one into one function
+// Print a simple line, with a title in normal text and a content in normal text
+func PrintLineSubTitle(title, content string) string {
+    if strings.Compare(content, "") == 0 {
+	return fmt.Sprintf(BrightGreen + title + ":", Reset)
+    } else {
+	return fmt.Sprintf(BrightGreen + title + ": " + Reset + Clean(content))
     }
 }
 
 // Print in Unordered List format
-func PrintUnList(title, content string) {
-    PrintLineTitle(title, "")
-    fmt.Println(Clean(strings.Replace(content, ",\n", "\n\t- ", -1)))
+func PrintUnList(title, content string) string {
+    return fmt.Sprintf(Green + title + ": " + Reset + Clean(strings.Replace(content, ",\n", "\n\t- ", -1)))
+}
+
+// Print with subsection
+// Input:
+//  - title string: title of the section
+//  - subSectionsTitle string[]: title of each section
+//  - subSectionsContent string[]: content of each section
+func PrintWithSubSection(title string, subSectionsTitle []string, subSectionsContent []string) string {
+
+    if (len(subSectionsContent) != len(subSectionsTitle)) {
+	log.Fatal("Length of the content does not match!")
+    }
+
+    result := ""
+
+    result += PrintLineTitle(title, "")
+
+    for i:=0; i < len(subSectionsTitle); i++ {
+	result += PrintLineSubTitle(subSectionsTitle[i], subSectionsContent[i])
+    }
+
+    result += "eto rahalahy"
+
+    return result
+
 }

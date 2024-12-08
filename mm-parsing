@@ -79,37 +79,57 @@ class Document:
             Partie du discours: nom
             Vocabulaire Economie: alimentation
 
-        We need to get a table tag, which some particular attribute:
-            - name="td"
+        We need to get td tags, which some particular attribute:
             - width="20%"
             - align="right"
 
         Returns
         -------
-        list
-            Each row is a key-value pair:
+        dictionary
                 {
-                    "label": "Explication en malgache",
-                    "text": "Trano fanaovana nahandro"
+                    "label": "text",
+                    "Explication en malgache": "Trano fanaovana nahandro"
+                    ...
                 }
         """
+
+        # get all <td> tag with some particular attributes
+        # `tables` is a list of `bs4.Tag`
         tables: list = self.soup.find_all(name="td", width="20%", align="right")
+        assert type(tables[0] == bs4.Tag)
+
         new_entry = {}
 
         for table in tables[:-1]:
-            # table[4:] because we do not want to print the first 4 <table>,
-            # which is the navigation menu and some unknown BS!
-            # TODO: this needs a hard edit cuz that guy was fkn lazy!
 
             # remove <span class="minute">
             minute = table.next_sibling.next_sibling.find("span", class_="minute")
             if minute != None:
                 minute.extract()
 
-            # take a look at the html file (result.html) to understand this section
-            # put next_sibling 2 times because the first sibling is a whitespace
+            # Flatten the <td> tag because it can contains multiple children tag
+            # Take a look at the html file (result.html) to understand this section
+            # `table.string` is the key
+            # `next_sibling` property is applied 2 times because the first sibling is a whitespace
             # Look at https://www.crummy.com/software/BeautifulSoup/bs4/doc/#next-sibling-and-previous-sibling
-            new_entry[table.string] = "".join(table.next_sibling.next_sibling.stripped_strings)
+
+            # if the key (`table.string`) is 'Morphologie', create a child dict because it contains sub key
+            # {
+            #    "Morphologie": { 
+            #      "key": "value",
+            #      ... 
+            #    }
+            # }
+            if table.string == 'Morphologie':
+                # Get <span class='mgtr'>
+                subkey = table.next_sibling.next_sibling.find_all("span", class_="mgtr")
+                assert type(subkey) == bs4.Tag
+                new_entry[table.string] = {}
+                for s in subkey:
+                    new_entry[table.string][s] = s.parent.next_sibling.stripped_strings
+
+            else:
+                new_entry[table.string] = "".join(table.next_sibling.next_sibling.stripped_strings)
 
 
         return new_entry
