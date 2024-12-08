@@ -9,7 +9,6 @@ import (
     "mm/utils"
     "os"
     "encoding/json"
-    "strings"
 )
 
 func init() {
@@ -53,37 +52,7 @@ var searchCmd = &cobra.Command{
       }
 
       // Print the result
-      m := fmtResp.(map[string]interface{})
-      for k, v := range m {
-	  trimedK := strings.TrimSpace(k) // Remove enventual whitespaces
-	  switch vv := v.(type) {
-	  case string:
-
-	      // 'Morphologie' contains multiple strings
-	      if(strings.Compare(trimedK, "Morphologie") == 0) {
-		  utils.PrintUnList(trimedK, vv)
-	      } else {
-
-		  // Remove section 'Mots composés' because it's too long!
-		  // Maybe handle this in the future if I'm not lazy!
-		  if(strings.Compare(trimedK, "Mots composés") != 0) {
-
-		      // Split into multiple line for section 'Analogues'
-		      if(strings.Compare(trimedK, "Analogues") == 0) {
-			  utils.PrintUnList(trimedK, vv)
-		      } else {
-			  // Default print mode for all section except these mentioned above
-			  utils.PrintLineTitle(trimedK, vv)
-		      }
-
-		  }
-	      }
-
-
-	  default:
-	      fmt.Println(k, " dia type tsy mbola hitako hatr@izay niainana!")
-	  }
-      }
+      utils.PrintResult(fmtResp)
 
       utils.PrintRuler()
 
