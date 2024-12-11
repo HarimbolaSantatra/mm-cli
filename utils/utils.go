@@ -10,8 +10,14 @@ import (
 func GetKeysValues( jsonContent interface{}, debug bool) (keys, values []string) {
     x := make([]string, 0)
     y := make([]string, 0)
-    x = append(x, "Name","Last name", "age")
-    y = append(y, "Richard", "Rapport", "28")
+
+    for k, v := range jsonContent.(map[string]string) {
+	if debug {
+	    log.Printf("Append key-value %s-%s", k, v)
+	}
+	x = append(x, k)
+	y = append(y, v)
+    }
 
     if debug {
 	log.Printf("Value of keys and value in GetKeysValues:\n%s\n%s", x, y)
