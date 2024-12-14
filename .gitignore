@@ -1,11 +1,14 @@
 # Editor
 Session.vim
+.vscode/*
 
-# default output
+
+# Output
 mm
-# temp
+dist/
+*.out
+
+# Temporary files
 test/tmp.*
 *.tmp
 *.temp
-
-dist/
