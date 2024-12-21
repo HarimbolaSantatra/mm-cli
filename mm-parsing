@@ -47,6 +47,19 @@ def get_class(tag, class_name) -> bs4.Tag :
     """
     return tag.find("span", class_=class_name)
 
+# Custom exception
+class TagNotFound(Exception):
+    """
+    Raise when BS4 do not find a result for a specific tag
+    For example, if the array returned by `find_all` is of length 0
+    """
+
+    def __init__(self, value) -> None:
+        self.value = value
+
+    def __str__(self) -> str:
+        return f"BS4 cannot find {self.value}"
+
 
 class Document:
     """
@@ -98,7 +111,7 @@ class Document:
             Vocabulaire Economie: alimentation
 
         We need to get td tags, which some particular attribute:
-            - width="20%"
+            - width="18%"
             - align="right"
 
         Returns
@@ -112,8 +125,12 @@ class Document:
         """
 
         # get all <td> tag with some particular attributes
+        # Those <td> tag contains the keys like 'Vocabulaire', 'Morphologie', etc.
         # `tables` is a list of `bs4.Tag`
-        tables: list = self.soup.find_all(name="td", width="20%", align="right")
+        tables: list = self.soup.find_all(name="td", width="18%", align="right")
+
+        if len(tables) == 0:
+            raise TagNotFound("Search keys")
 
         # Assertion:
         assert_type(tables[0], bs4.Tag)
