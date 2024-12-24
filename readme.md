@@ -73,6 +73,7 @@ Use "mm [command] --help" for more information about a command.
 ## Acknowledgment
 - Banner made with [ascii-banner](https://manytools.org/hacker-tools/ascii-banner/) - *Banner* font
 - [Monde Malgache's contributors](https://motmalgache.org/bins/contributors)
+- Diagram made with [dia](http://dia-installer.de/)
 
 [1]: https://motmalgache.org/bins/homePage
 [2]: https://www.crummy.com/software/BeautifulSoup/bs4/doc/
