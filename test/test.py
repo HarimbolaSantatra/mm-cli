@@ -1,4 +1,4 @@
-# Test the HTML scraper
+# Test the HTML parser script (`mm-parsing`)
 # Test if the scraper needs an update.
 # That's the case only if the website has been updated by the admin
 # and it does not have the same HTML layout anymore.
@@ -9,7 +9,7 @@ import json
 import sys
 
 HTML_TESTFILE = "scraping-test/result.html"
-JSON_RESULT = "scraping-test/test-result.json"
+JSON_RESULT = "scraping-test/parsing-result.json"
 
 class TestScraping(unittest.TestCase):
 
@@ -45,10 +45,10 @@ class TestScraping(unittest.TestCase):
             jsfile = json.load(f)
 
         # Assert each field of the json file
-        self.assertEqual(jsfile["Partie du discours\u00a0"], "nom")
-        self.assertEqual(jsfile["Vocabulaire\u00a0"], "Economie: alimentation")
-        self.assertEqual(jsfile["Explications en malgache\u00a0"], "Trano fanaovana nahandro:Tsy miala ao an-dakozia foana io saka io[1.1]")
-        self.assertEqual(jsfile["Explications en fran\u00e7ais\u00a0"], "cuisine[1.3]")
+        self.assertEqual(jsfile["Partie du discours\u00a0"], "2nom")
+        self.assertEqual(jsfile["Vocabulaire\u00a0"], "5Economie: alimentation")
+        self.assertEqual(jsfile["Explications en malgache\u00a0"], "3Trano fanaovana nahandro:Tsy miala ao an-dakozia foana io saka io[1.1]")
+        self.assertEqual(jsfile["Explications en fran\u00e7ais\u00a0"], "4[lakoZY] cuisine[1.3]")
 
 if __name__ == '__main__':
     unittest.main()
