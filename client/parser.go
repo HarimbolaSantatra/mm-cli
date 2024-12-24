@@ -12,13 +12,12 @@ func LogPythonError(module string) {
     log.Fatalf("Python module \"%s\" not found! Create a virtual environment and install python packages with 'pip install -r requirements.txt'", module)
 }
 
+const scrapingEx = "mm-parsing" // Name of the scraping executable
 
 // Use `./mm-parsing` to get a HTML formatted string and return the JSON format
 // Input: a string in HTML format
 // Output: the response of the request in JSON format
 func ParseString(s string) string {
-
-    const scrapingEx = "mm-parsing" // Name of the scraping executable
 
     basePath, err := os.Getwd()
     if err != nil {

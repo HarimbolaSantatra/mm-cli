@@ -7,4 +7,5 @@ type ParsedContent struct {
     FrExplication string // Explication en french
     Vocabulaire string
     Morphologie string
+    Analogue string
 }
