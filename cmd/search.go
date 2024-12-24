@@ -33,7 +33,8 @@ var searchCmd = &cobra.Command{
 	  fmt.Println("Warning: 'mm' can only handle one keyword so it will only consider the first one!")
       }
       htmlResult := client.Search(args[0])
-      jsonStr := client.ParseString(htmlResult) // `jsonStr` contains a JSON
+      // `jsonStr` contains a JSON
+      jsonStr := client.ParseString(htmlResult) 
 
       // Decoding content of the JSON
       // we are decoding arbitrary data because the JSON contains unicode chars

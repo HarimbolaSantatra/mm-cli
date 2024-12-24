@@ -8,5 +8,3 @@ type ParsedContent struct {
     Vocabulaire string
     Morphologie string
 }
-
-

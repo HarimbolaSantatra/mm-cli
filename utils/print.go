@@ -33,11 +33,6 @@ func GetVersion() string {
     return version
 }
 
-// Function used by test function to print debugging information
-func DebugPrint(actual, expected string) string {
-    return fmt.Sprintf("\n\nActual result:\n%s\n\nExpected result:\n%s", actual, expected)
-}
-
 func PrintRuler() {
     fmt.Println("\n" + ruler)
 }
@@ -62,7 +57,6 @@ func Clean(txt string) string {
 }
 
 // Print a simple line with a title in bold and a content in normal text
-// 
 func PrintKeyAndValue(title, content string, isSubTitle bool) string {
 
     var sb strings.Builder

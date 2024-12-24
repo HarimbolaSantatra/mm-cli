@@ -5,8 +5,8 @@ import (
 )
 
 // Get the keys and the values of a JSON and returns two slice representing them
-// Arguments: and empty interfacem representing a JSON data
-// Returns: an slice of keys and values
+// Takes an empty interface representing a JSON data
+// Returns a slice of keys and values
 func GetKeysValues( jsonContent interface{}, debug bool) (keys, values []string) {
     x := make([]string, 0)
     y := make([]string, 0)
