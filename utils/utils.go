@@ -2,6 +2,9 @@ package utils
 
 import (
     "log"
+    "encoding/json"
+
+    "mm/datatype"
 )
 
 // Get the keys and the values of a JSON and returns two slice representing them
@@ -26,4 +29,16 @@ func GetKeysValues( jsonContent interface{}, debug bool) (keys, values []string)
     }
 
     return x,y
+}
+
+// Convert the json string in ParsedContent
+func ConvertToParsedContent(jsonStr string) (datatype.ParsedContent) {
+    // TODO: ato le erreur
+    // TODO: use delve debugger to view instead jsonContent.Discours
+    var jsonContent datatype.ParsedContent
+    err := json.Unmarshal([]byte(jsonStr), &jsonContent)
+    if err != nil {
+	log.Fatalf("JSON Unmarshaling error: %s", err)
+    }
+    return jsonContent
 }

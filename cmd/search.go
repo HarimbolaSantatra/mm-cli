@@ -1,15 +1,15 @@
 package cmd
 
 import (
-    "fmt"
-    "github.com/spf13/cobra"
-    "io"
-    "log"
-    "mm/client"
-    "mm/utils"
-    "mm/datatype"
-    "os"
-    "encoding/json"
+	"fmt"
+	"io"
+	"log"
+	"os"
+
+	"github.com/spf13/cobra"
+
+	"mm/client"
+	"mm/utils"
 )
 
 func init() {
@@ -40,24 +40,11 @@ var searchCmd = &cobra.Command{
       // extract the JSON from the html result in string format
       jsonStr := client.ParseString(htmlResult) 
 
-      // Decoding the jsonContent of the JSON
-      // we are decoding arbitrary data because the JSON contains unicode chars
-      // See https://go.dev/blog/json#decoding-arbitrary-data
-      var jsonContent datatype.ParsedContent
-      jsonErr := json.Unmarshal([]byte(jsonStr), &fmtResp)
+      jsonContent := utils.ConvertToParsedContent(jsonStr)
 
       if Debug {
 	  log.Printf("JSON result:\n%s\n", jsonStr)
-      }
-
-      if jsonErr != nil {
-
-	  if Debug {
-	      log.Printf("HTML file:\n%s\n", htmlResult)
-	  }
-
-	  log.Printf("Error in JSON content:\n%s\n", string([]byte(jsonStr)))
-	  log.Fatalf("Misy erreur ny JSON anao!: %s\n", jsonErr)
+	  jsonContent.DebugPrint()
       }
 
       // Print the result
