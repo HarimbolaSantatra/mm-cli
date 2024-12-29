@@ -7,4 +7,5 @@ Flow:
 3. HTML file is returned and handled by `client/parser.go`
 4. HTML file is send to `mm-parsing` script
 5. Parsing script return the data in JSON
-6. `client/parser.go` convert the JSON to string and `PrintResult(...)` function print the final output
+6. `client/parser.go` convert the JSON to string and return the string
+7. `PrintResult(...)` function print the final output

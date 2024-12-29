@@ -2,9 +2,9 @@ package utils
 
 import (
     "fmt"
-    "log"
     "regexp"
     "strings"
+    "mm/datatype"
 )
 
 var Reset = "\033[0m" 
@@ -86,48 +86,13 @@ func PrintUnListItem(title, content string) string {
 
 // Print the final content, which should be the result of the HTML parsing
 // Input: an empty interface. This should contain the key `k` and value `v` of the JSON
-func PrintResult(inp interface{}, debug bool) {
+func PrintResult(parsedContent datatype.ParsedContent, debug bool) {
 
-    // Assert and convert `inp` to a map
-    m := inp.(map[string]interface{})
-
-    for k, v := range m {
-
-	// Remove eventual whitespaces 
-	trimedK := strings.TrimSpace(k)
-
-	switch vv := v.(type) {
-	    case string:
-
-		// Split into multiple line for section 'Analogues'
-		if (strings.Compare(trimedK, "Analogues") == 0) {
-		    fmt.Println(PrintUnListItem(trimedK, vv))
-		    break
-		}
-
-		// Default print mode for all section except these mentioned above
-		// Do not print 'Mots composés'
-		if (strings.Compare(trimedK, "Mots composés") != 0) {
-		    fmt.Println(PrintKeyAndValue(trimedK, vv, false))
-		    break
-		}
-
-	    case interface{}:
-		// Section `Morphologie` contains a sub section and should use this
-		keys, values := GetKeysValues(vv, debug)
-
-		if debug {
-		    log.Fatalf("Value of keys and value in the PrintResult:\n%s\n%s\n", keys, values)
-		}
-
-		// fmt.Printf("%s\n", PrintSubSection(trimedK, keys, values))
-		break
-
-	    default:
-		log.Fatalf("%s dia type tsy mbola hitako hatr@izay niainana!", k)
-
-	    }
-
-    }
+    PrintKeyAndValue("partie du discours", parsedContent.Discours, false)
+    PrintKeyAndValue("Explication en malgache", parsedContent.MlgExplication, false)
+    PrintKeyAndValue("Explication en french", parsedContent.FrExplication, false)
+    PrintKeyAndValue("Vocabulaire", parsedContent.Vocabulaire, false)
+    PrintKeyAndValue("Morphologie", parsedContent.Morphologie, false)
+    PrintKeyAndValue("Analogue", parsedContent.Analogue, false)
 
 }

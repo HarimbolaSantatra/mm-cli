@@ -7,6 +7,7 @@ import (
     "log"
     "mm/client"
     "mm/utils"
+    "mm/datatype"
     "os"
     "encoding/json"
 )
@@ -32,14 +33,17 @@ var searchCmd = &cobra.Command{
       if len(args) > 1 {
 	  fmt.Println("Warning: 'mm' can only handle one keyword so it will only consider the first one!")
       }
+
+      // Search the user's query to motmalgache.org
       htmlResult := client.Search(args[0])
-      // `jsonStr` contains a JSON
+
+      // extract the JSON from the html result in string format
       jsonStr := client.ParseString(htmlResult) 
 
-      // Decoding content of the JSON
+      // Decoding the jsonContent of the JSON
       // we are decoding arbitrary data because the JSON contains unicode chars
       // See https://go.dev/blog/json#decoding-arbitrary-data
-      var fmtResp interface{}
+      var jsonContent datatype.ParsedContent
       jsonErr := json.Unmarshal([]byte(jsonStr), &fmtResp)
 
       if Debug {
@@ -57,7 +61,7 @@ var searchCmd = &cobra.Command{
       }
 
       // Print the result
-      utils.PrintResult(fmtResp, Debug)
+      utils.PrintResult(jsonContent, Debug)
 
       utils.PrintRuler()
 

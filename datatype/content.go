@@ -1,4 +1,4 @@
-package utils
+package datatype
 
 // Represent the JSON returned by `mm-parsing`
 type ParsedContent struct {
