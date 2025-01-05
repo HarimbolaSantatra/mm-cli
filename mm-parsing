@@ -1,15 +1,12 @@
 #!/usr/bin/env python
 
-# This is the web parsing script which takes a html string and
-# convert it to a JSON format
-# and print the result to stdout
+# This is the web parsing script which takes a html string from stdin 
+# ,convert it to a JSON format and print the result to stdout
 
 # To test the output of this script, run
-# cat scraping-test/result.html | xargs --null ./mm-parsing
+# cat scraping-test/result.html | ./mm-parsing
 
 import sys, json
-import sys
-
 
 def print_module_error(module_name):
     print(f"{module_name} is required! Maybe you forget to enable a virtual environment!")
@@ -167,15 +164,10 @@ class Document:
 
 
 def main():
-    argv = sys.argv
-
-    if len(argv) != 2:
-        print("Incorrect number of arguments!")
-        print("Usage: {} STRING".format(argv[0]))
-        sys.exit(1)
-
-    doc = Document(argv[1])
-    print(doc.print_table(), file=sys.stdout)
+    # The html document from stdin
+    htmlContent = sys.stdin.read()
+    doc = Document(htmlContent)
+    print(doc.print_table())
 
 
 if __name__ == '__main__':

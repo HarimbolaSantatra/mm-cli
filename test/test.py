@@ -16,33 +16,22 @@ class TestScraping(unittest.TestCase):
     def test_scraper(self):
 
         # Create and run commands
-        # Full command is "cat scraping-test/result.html | xargs -0 ./mm-parsing"
-        cat_process = subprocess.Popen(["cat", HTML_TESTFILE],
-                                       stdout=subprocess.PIPE,
-                                       text=True)
-        xarg_process = subprocess.Popen(["xargs", "-0", "./mm-parsing"],
-                                        stdin=cat_process.stdout,
-                                        stdout=subprocess.DEVNULL,
-                                        stderr=None,
-                                        text=True)
+        # Full command is "cat scraping-test/result.html | ./mm-parsing"
+
+        html_file = open(HTML_TESTFILE, "r")
+        xarg_process = subprocess.Popen(["./mm-parsing"], stdin=html_file, text=True,
+                                        stdout=subprocess.PIPE)
+        html_file.close()
 
         try:
-            output, error = xarg_process.communicate(timeout=15)
-            if error != None:
-                print(error, file=sys.stderr)
-                sys.exit(1)
-
+            output, _ = xarg_process.communicate(timeout=15)
+            print(output)
             xarg_process.kill()
-        except TimeoutExpired:
-            cat_process.stdout.close()
-            cat_process.kill()
+
+        except subprocess.TimeoutExpired:
             xarg_process.kill()
-            print("Timeout for xargs process")
-            sys.exit(1)
-
-        cat_process.stdout.close()
-        cat_process.kill()
-
+            print(f"Timeout error")
+            sys.exit(3)
 
         # Open JSON file into a variable
         with open(JSON_RESULT, 'r') as f:
