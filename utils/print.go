@@ -2,13 +2,15 @@ package utils
 
 import (
     "fmt"
-    "strings"
     "regexp"
+    "strings"
+    "mm/datatype"
 )
 
 var Reset = "\033[0m" 
 var Red = "\033[31m" 
 var Green = "\033[32m" 
+var BrightGreen = "\033[92m" 
 var White = "\033[97m"
 
 const banner = `
@@ -32,7 +34,7 @@ func GetVersion() string {
 }
 
 func PrintRuler() {
-    fmt.Println("\n" + ruler + "\n")
+    fmt.Println("\n" + ruler)
 }
 
 func PrintBanner() {
@@ -54,19 +56,43 @@ func Clean(txt string) string {
     return re.ReplaceAllString(txt, "")
 }
 
-// Print a simple line
-func PrintLineTitle(title string, content string) {
+// Print a simple line with a title in bold and a content in normal text
+func PrintKeyAndValue(title, content string, isSubTitle bool) string {
+
+    var sb strings.Builder
+
+    var color string
+    if isSubTitle {
+	color = BrightGreen
+    } else { 
+	color = Green
+    }
+
     if strings.Compare(content, "") == 0 {
-	// just print the title in green
-	fmt.Println(Green + title + ":", Reset)
+	// just print the title in color and ignore the content
+	sb.WriteString(fmt.Sprintf("%s%s: %s", color, title, Reset))
     } else {
 	// print the title and the content
-	fmt.Println(Green + title + ": " + Reset + Clean(content))
+	sb.WriteString(fmt.Sprintf("\t%s- %s: %s%s", color, title, Reset, Clean(content)))
     }
+    return sb.String()
 }
 
-// Print in Unordered List format
-func PrintUnList(title, content string) {
-    PrintLineTitle(title, "")
-    fmt.Println(Clean(strings.Replace(content, ",\n", "\n\t- ", -1)))
+// Print an item in a unordered list
+func PrintUnListItem(title, content string) string {
+    return Green + title + ": " + Reset + Clean(strings.Replace(content, ",\n", "\n\t- ", -1))
+}
+
+
+// Print the final content, which should be the result of the HTML parsing
+// Input: an empty interface. This should contain the key `k` and value `v` of the JSON
+func PrintResult(parsedContent datatype.ParsedContent, debug bool) {
+
+    PrintKeyAndValue("partie du discours", parsedContent.Discours, false)
+    PrintKeyAndValue("Explication en malgache", parsedContent.MlgExplication, false)
+    PrintKeyAndValue("Explication en french", parsedContent.FrExplication, false)
+    PrintKeyAndValue("Vocabulaire", parsedContent.Vocabulaire, false)
+    PrintKeyAndValue("Morphologie", parsedContent.Morphologie, false)
+    PrintKeyAndValue("Analogue", parsedContent.Analogue, false)
+
 }

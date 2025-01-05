@@ -1,4 +1,4 @@
-# Test the HTML scraper
+# Test the HTML parser script (`mm-parsing`)
 # Test if the scraper needs an update.
 # That's the case only if the website has been updated by the admin
 # and it does not have the same HTML layout anymore.
@@ -9,7 +9,7 @@ import json
 import sys
 
 HTML_TESTFILE = "scraping-test/result.html"
-JSON_RESULT = "scraping-test/test-result.json"
+JSON_RESULT = "scraping-test/parsing-result.json"
 
 class TestScraping(unittest.TestCase):
 
