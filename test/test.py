@@ -45,10 +45,10 @@ class TestScraping(unittest.TestCase):
             jsfile = json.load(f)
 
         # Assert each field of the json file
-        self.assertEqual(jsfile["Partie du discours\u00a0"], "nom")
-        self.assertEqual(jsfile["Vocabulaire\u00a0"], "Economie: alimentation")
-        self.assertEqual(jsfile["Explications en malgache\u00a0"], "Trano fanaovana nahandro:Tsy miala ao an-dakozia foana io saka io[1.1]")
-        self.assertEqual(jsfile["Explications en fran\u00e7ais\u00a0"], "cuisine[1.3]")
+        self.assertEqual(jsfile["Part of speech\u00a0"], "2noun")
+        self.assertEqual(jsfile["Vocabulary\u00a0"], "5Economy: food")
+        self.assertEqual(jsfile["Explanations in Malagasy\u00a0"], "3[1.1]Trano fanaovana nahandro:Tsy miala ao an-dakozia foana io saka io")
+        self.assertEqual(jsfile["Explanations in French\u00a0"], "4[1.3][lakoZY] cuisine")
 
 if __name__ == '__main__':
     unittest.main()
