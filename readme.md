@@ -1,5 +1,5 @@
 # MMCLI
-**MMCLI** is a command line malagasy encyclopedia and dictionary. It makes a request to [motmalgache.org][1] and use [Beautiful Soup][2] to parse the HTML result.
+**MMCLI** is a command line malagasy encyclopedia and dictionary. It makes a request to [malagasyword.org][1] and use [Beautiful Soup][2] to parse the HTML result.
 
 ## Screenshot
 ![screenshot](screenshot.png)
@@ -55,7 +55,7 @@ Usage:
 
 Available Commands:
   completion  Generate the autocompletion script for the specified shell
-  health      Check health of motmalgache.org and the HTTP client
+  health      Check health of malagasyword.org and the HTTP client
   help        Help about any command
   search      Search for a word
   version     Print version number
@@ -72,10 +72,10 @@ Use "mm [command] --help" for more information about a command.
 
 ## Acknowledgment
 - Banner made with [ascii-banner](https://manytools.org/hacker-tools/ascii-banner/) - *Banner* font
-- [Monde Malgache's contributors](https://motmalgache.org/bins/contributors)
+- [Malagasy Word contributors](https://malagasyword.org/bins/contributors)
 - Diagram made with [dia](http://dia-installer.de/)
 
-[1]: https://motmalgache.org/bins/homePage
+[1]: https://malagasyword.org/bins/homePage
 [2]: https://www.crummy.com/software/BeautifulSoup/bs4/doc/
 [3]: https://github.com/HarimbolaSantatra/mm-cli/releases/latest
 [4]: https://github.com/HarimbolaSantatra/mm-cli/issues

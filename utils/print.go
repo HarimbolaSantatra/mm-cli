@@ -22,8 +22,8 @@ const banner = `
 `
 const ruler = "===================================="
 
-const mmContributorLink = "https://motmalgache.org/bins/contributors"
-const mmHomepage = "https://motmalgache.org/bins/homePage"
+const mmContributorLink = "https://malagasyword.org/bins/contributors"
+const mmHomepage = "https://malagasyword.org/bins/homePage"
 const sourceCodeLink = "https://github.com/HarimbolaSantatra/mm-cli"
 
 func GetVersion() string {
@@ -38,8 +38,8 @@ func PrintRuler() {
 func PrintBanner() {
     PrintRuler()
     fmt.Printf("%s", banner)
-    fmt.Println(Red, "Monde Malgache homepage:", Reset , mmHomepage)
-    fmt.Println(Red, "Monde Malgache contributors:", Reset, mmContributorLink)
+    fmt.Println(Red, "Malagasy Word homepage:", Reset , mmHomepage)
+    fmt.Println(Red, "Malagasy Word contributors:", Reset, mmContributorLink)
     fmt.Println(Red, "Source code:", Reset, sourceCodeLink)
     fmt.Println(Red, "Version:", Reset, GetVersion())
     PrintRuler()

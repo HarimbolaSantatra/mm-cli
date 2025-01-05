@@ -10,7 +10,7 @@ import (
     "time"
 )
 
-const baseUrl = "https://motmalgache.org/bins"
+const baseUrl = "https://malagasyword.org/bins"
 var homepageEnd = fmt.Sprintf("%s/homePage", baseUrl)
 var searchEndpoint = fmt.Sprintf("%s/teny2", baseUrl)
 
@@ -39,7 +39,7 @@ func (data Data) Read(p []byte) (n int, err error) {
     return len(p), err
 }
 
-// Make a request to motmalgache.org
+// Make a request to malagasyword.org
 // Input: string, a search keyword
 // Return: string, the html content of the result
 func Search(keyword string) string {

@@ -1,7 +1,7 @@
 #!/bin/bash
-# Make a test request to motmalgache.org
+# Make a test request to malagasyword.org
 
-BASE_URL="https://motmalgache.org/bins"
+BASE_URL="https://malagasyword.org/bins"
 SEARCH_ENDPOINT="${BASE_URL}/teny2"
 curl -Ls \
     -XPOST \
