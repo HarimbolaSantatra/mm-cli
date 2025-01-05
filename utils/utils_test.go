@@ -22,9 +22,9 @@ func TestConvertToParsedContent(t *testing.T) {
 
     content := ConvertToParsedContent(jsonBlob)
 
-    expected := datatype.ParsedContent{Discours: "Foobar", Vocabulaire: "BarBaz"}
+    expected := datatype.ParsedContent{Speech: "Foobar", Vocabulary: "BarBaz"}
 
-    TestingCompare(t, content.Discours, expected.Discours)
-    TestingCompare(t, content.Vocabulaire, expected.Vocabulaire)
+    TestingCompare(t, content.Speech, expected.Speech)
+    TestingCompare(t, content.Vocabulary, expected.Vocabulary)
 
 }

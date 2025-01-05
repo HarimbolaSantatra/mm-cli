@@ -93,9 +93,9 @@ class Document:
         """
         Get all the pair of result.
         e.g:
-            Entrée: lakozia
-            Partie du discours: nom
-            Vocabulaire Economie: alimentation
+            Entry: lakozia
+            Part of speech: nom
+            Vocabulary Economie: alimentation
 
         We need to get td tags, which some particular attribute:
             - width="18%"

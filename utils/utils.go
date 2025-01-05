@@ -34,10 +34,23 @@ func GetKeysValues( jsonContent interface{}, debug bool) (keys, values []string)
 // Convert the json string in ParsedContent
 func ConvertToParsedContent(jsonStr []byte) datatype.ParsedContent {
     var jsonContent datatype.ParsedContent
-    err := json.Unmarshal(jsonStr, &jsonContent)
+    var m map[string]string
+
+    err := json.Unmarshal(jsonStr, &m)
     if err != nil {
 	log.Printf("JSON in string format: %s", jsonStr)
 	log.Fatalf("JSON Unmarshaling error: %s", err)
     }
+
+    // Using the map `m` as intermediary is necessary because
+    // encoding/json package does not allow some characters as a key
+    // See: https://stackoverflow.com/questions/79330361/cannot-use-some-unicode-character-as-a-struct-tag/79330696
+    jsonContent.Speech = m["Part of speech\u00a0"]
+    jsonContent.MlgExplication = m["MlgExplication\u00a0"]
+    jsonContent.FrExplication = m["FrExplication\u00a0"]
+    jsonContent.Vocabulary = m["Vocabulary\u00a0"]
+    jsonContent.Morphology = m["Morphology\u00a0"]
+    jsonContent.Analogs = m["Analogs\u00a0"]
+
     return jsonContent
 }

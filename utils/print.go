@@ -88,11 +88,11 @@ func PrintUnListItem(title, content string) string {
 // Input: an empty interface. This should contain the key `k` and value `v` of the JSON
 func PrintResult(parsedContent datatype.ParsedContent, debug bool) {
 
-    PrintKeyAndValue("partie du discours", parsedContent.Discours, false)
-    PrintKeyAndValue("Explication en malgache", parsedContent.MlgExplication, false)
-    PrintKeyAndValue("Explication en french", parsedContent.FrExplication, false)
-    PrintKeyAndValue("Vocabulaire", parsedContent.Vocabulaire, false)
-    PrintKeyAndValue("Morphologie", parsedContent.Morphologie, false)
-    PrintKeyAndValue("Analogue", parsedContent.Analogue, false)
+    PrintKeyAndValue("Speech Content", parsedContent.Speech, false)
+    PrintKeyAndValue("Malagasy explanation", parsedContent.MlgExplication, false)
+    PrintKeyAndValue("French explanation", parsedContent.FrExplication, false)
+    PrintKeyAndValue("Vocabulary", parsedContent.Vocabulary, false)
+    PrintKeyAndValue("Morphology", parsedContent.Morphology, false)
+    PrintKeyAndValue("Analogs", parsedContent.Analogs, false)
 
 }
