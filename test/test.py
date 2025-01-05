@@ -28,6 +28,10 @@ class TestScraping(unittest.TestCase):
 
         try:
             output, error = xarg_process.communicate(timeout=15)
+            if error != None:
+                print(error, file=sys.stderr)
+                sys.exit(1)
+
             xarg_process.kill()
         except TimeoutExpired:
             cat_process.stdout.close()
