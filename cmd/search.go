@@ -3,7 +3,6 @@ package cmd
 import (
 	"fmt"
 	"io"
-	"log"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -38,12 +37,9 @@ var searchCmd = &cobra.Command{
       htmlResult := client.Search(args[0])
 
       // extract the JSON from the html result in string format
-      jsonStr := client.ParseString(htmlResult) 
-
-      jsonContent := utils.ConvertToParsedContent([]byte(jsonStr))
+      jsonContent := client.ParseString(htmlResult) 
 
       if Debug {
-	  log.Printf("JSON result:\n%s\n", jsonStr)
 	  jsonContent.DebugPrint()
       }
 

@@ -1,10 +1,13 @@
 package client
 
 import (
-    "log"
-    "os"
-    "os/exec"
-    "path/filepath"
+	"log"
+	"os"
+	"os/exec"
+	"path/filepath"
+
+	"mm/datatype"
+	"mm/utils"
 )
 
 // Handle error related to Python requirements
@@ -17,7 +20,7 @@ const scrapingEx = "mm-parsing" // Name of the scraping executable
 // Use `./mm-parsing` to get a HTML formatted string and return the JSON format
 // Input: a string in HTML format
 // Output: the response of the request in JSON format
-func ParseString(s string) string {
+func ParseString(s string) datatype.ParsedContent {
 
     basePath, err := os.Getwd()
     if err != nil {
@@ -37,5 +40,5 @@ func ParseString(s string) string {
 	    LogPythonError("bs4")
 	}
     }
-    return string(bt)
+    return utils.ConvertToParsedContent(bt)
 }

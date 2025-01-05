@@ -18,14 +18,13 @@ func TestingCompare(t *testing.T, str1, str2 string) {
 
 func TestConvertToParsedContent(t *testing.T) {
 
-    jsonBlob := []byte(`{"foobar\u0062": "some value", "Partie du discours\u0062": "Foobar", "Vocable": "BarBaz"}`)
+    jsonBlob := []byte(`{"Part of speech\u00a0": "Foobar", "Vocabulary\u00a0": "BarBaz"}`)
 
     content := ConvertToParsedContent(jsonBlob)
 
-    expected := datatype.ParsedContent{X: "some value", Discours: "Foobar", Vocabulaire: "BarBaz"}
+    expected := datatype.ParsedContent{Discours: "Foobar", Vocabulaire: "BarBaz"}
 
     TestingCompare(t, content.Discours, expected.Discours)
-    TestingCompare(t, content.X, expected.X)
     TestingCompare(t, content.Vocabulaire, expected.Vocabulaire)
 
 }

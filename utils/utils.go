@@ -32,13 +32,11 @@ func GetKeysValues( jsonContent interface{}, debug bool) (keys, values []string)
 }
 
 // Convert the json string in ParsedContent
-func ConvertToParsedContent(jsonStr []byte) (datatype.ParsedContent) {
-    // TODO: ato le erreur
-    // TODO: use delve debugger to view instead jsonContent.Discours
+func ConvertToParsedContent(jsonStr []byte) datatype.ParsedContent {
     var jsonContent datatype.ParsedContent
     err := json.Unmarshal(jsonStr, &jsonContent)
     if err != nil {
-	log.Printf("JSON Content: %s", jsonStr)
+	log.Printf("JSON in string format: %s", jsonStr)
 	log.Fatalf("JSON Unmarshaling error: %s", err)
     }
     return jsonContent

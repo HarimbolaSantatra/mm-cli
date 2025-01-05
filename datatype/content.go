@@ -5,18 +5,12 @@ import "fmt"
 // Represent the JSON returned by `mm-parsing`
 type ParsedContent struct {
     
-    // Test
-    X string `json:"foobar\u0062"`
-    // partie du discours
-    Discours string `json:"Partie du discours\u0062"`
-    // Explication en malgache
-    MlgExplication string `json:"Explications en malgache\u00a0"`
-    // Explication en french
-    FrExplication string `json:"Explications en fran\u00e7ais\u00a0"`
-
-    Vocabulaire string `json:"Vocable"`
-    Morphologie string `json:"Morphologie\u00a0"`
-    Analogue string `json:"Analogues\u00a0"`
+    Discours string `json:"Part of speech\u00a0"`
+    MlgExplication string `json:"Explanations in Malagasy\u00a0"`
+    FrExplication string `json:"Explanations in French\u00a0"`
+    Vocabulaire string `json:"Vocabulary\u00a0"`
+    Morphologie string `json:"Morphology\u00a0"`
+    Analogue string `json:"Analogs\u00a0"`
 }
 
 
