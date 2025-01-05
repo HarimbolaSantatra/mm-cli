@@ -37,9 +37,6 @@ func ParseString(s string) string {
 	if err.Error() == "exit status 2" {
 	    LogPythonError("bs4")
 	}
-	if err.Error() == "exit status 3" {
-	    LogPythonError("rich")
-	}
     }
     return string(bt)
 }

@@ -16,13 +16,6 @@ except ModuleNotFoundError:
     sys.exit(2)
 
 
-try:
-    from rich.console import Console
-except ModuleNotFoundError:
-    print_module_error("rich")
-    sys.exit(3)
-
-
 def get_class(tag, class_name) -> bs4.Tag :
     """
     Search for a tag who has a class 'class_name'
@@ -49,10 +42,6 @@ class Document:
 
         # self.soup is a <html> tag object
         self.soup = soup
-
-        # 'rich' module for pretty printing
-        self.console = Console()
-
 
     def get_entry_word(self) -> str:
         """
