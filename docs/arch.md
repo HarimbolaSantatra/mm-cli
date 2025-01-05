@@ -3,7 +3,7 @@
 
 Flow:
 1. User query
-2. HTTP request to *motmalgache.org*
+2. HTTP request to *malagasyword.org*
 3. HTML file is returned and handled by `client/parser.go`
 4. HTML file is send to `mm-parsing` script
 5. Parsing script return the data in JSON
