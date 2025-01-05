@@ -26,3 +26,9 @@ python3 -m json.tool $temp1 $temp1
 python3 -m json.tool $temp2 $temp2
 
 cmp -s $temp2 $temp1
+
+status=$?
+if [[ $status -eq 2 ]]; then
+    echo "cmp program error!"
+    exit $status
+fi
