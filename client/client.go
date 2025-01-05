@@ -30,7 +30,6 @@ func Health() int {
     return resCode
 }
 
-<<<<<<< HEAD
 // request Data
 type Data struct {
     requestData string

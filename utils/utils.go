@@ -38,6 +38,7 @@ func ConvertToParsedContent(jsonStr []byte) (datatype.ParsedContent) {
     var jsonContent datatype.ParsedContent
     err := json.Unmarshal(jsonStr, &jsonContent)
     if err != nil {
+	log.Printf("JSON Content: %s", jsonStr)
 	log.Fatalf("JSON Unmarshaling error: %s", err)
     }
     return jsonContent
