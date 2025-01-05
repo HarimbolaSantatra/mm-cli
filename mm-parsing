@@ -60,7 +60,7 @@ class Document:
         return entry_word
 
 
-    def get_result_pairs(self) -> list:
+    def get_result_pairs(self) -> dict:
         """
         Get all the pair of result.
         e.g:
@@ -82,7 +82,7 @@ class Document:
                     "text": "Trano fanaovana nahandro"
                 }
         """
-        tables: list = self.soup.find_all(name="td", width="20%", align="right")
+        tables: list = self.soup.find_all(name="td", width="18%", align="right")
         new_entry = {}
 
         for table in tables[:-1]:
