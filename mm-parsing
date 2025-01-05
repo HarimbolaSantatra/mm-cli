@@ -49,7 +49,7 @@ class TagNotFound(Exception):
         self.value = value
 
     def __str__(self) -> str:
-        return f"BS4 cannot find {self.value}"
+        return f"BS4 can't find {self.value}"
 
 
 class Document:
