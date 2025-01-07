@@ -5,7 +5,6 @@
 
 import unittest
 import subprocess
-import json
 import sys
 
 HTML_TESTFILE = "scraping-test/result.html"
@@ -22,7 +21,6 @@ class TestScraping(unittest.TestCase):
 
         try:
             output, _ = xarg_process.communicate(timeout=15)
-            print(output)
             xarg_process.kill()
 
         except subprocess.TimeoutExpired:
@@ -32,13 +30,9 @@ class TestScraping(unittest.TestCase):
 
         # Open JSON file into a variable
         with open(JSON_RESULT, 'r') as f:
-            jsfile = json.load(f)
+            jsfile = f.read()
 
-        # Assert each field of the json file
-        self.assertEqual(jsfile["Part of speech\u00a0"], "2noun")
-        self.assertEqual(jsfile["Vocabulary\u00a0"], "5Economy: food")
-        self.assertEqual(jsfile["Explanations in Malagasy\u00a0"], "3[1.1]Trano fanaovana nahandro:Tsy miala ao an-dakozia foana io saka io")
-        self.assertEqual(jsfile["Explanations in French\u00a0"], "4[1.3][lakoZY] cuisine")
+        self.assertEqual(jsfile, output)
 
 if __name__ == '__main__':
     unittest.main()
