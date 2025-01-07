@@ -15,9 +15,6 @@ class TestScraping(unittest.TestCase):
 
     def test_scraper(self):
 
-        # Create and run commands
-        # Full command is "cat scraping-test/result.html | ./mm-parsing"
-
         html_file = open(HTML_TESTFILE, "r")
         xarg_process = subprocess.Popen(["./mm-parsing"], stdin=html_file, text=True,
                                         stdout=subprocess.PIPE)
