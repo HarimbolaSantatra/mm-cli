@@ -1,7 +1,6 @@
 package client
 
 import (
-    "errors"
     "fmt"
     "log"
     "os"
@@ -26,11 +25,13 @@ const scrapingEx = "mm-parsing" // Name of the scraping executable
 func ParseString(s string) datatype.ParsedContent {
 
     // TODO: edit this relative path
-    exPath := fmt.Sprintf("../%s", scrapingEx)
+    dirname, _ := os.Executable()
+    exPath := fmt.Sprintf("%s/%s", dirname, scrapingEx)
 
     // Check if the executable exist
-    if _, err := os.Stat(exPath); errors.Is(err, os.ErrNotExist) {
-	log.Fatalf("Executable %s does not exist", exPath)
+    _, err := os.Stat(exPath)
+    if err != nil {
+	log.Fatalf("Error: %s", err)
     }
 
     // Execute command and handle error
@@ -49,7 +50,7 @@ func ParseString(s string) datatype.ParsedContent {
 
     // Handle empty output error
     if len(bt) == 0 {
-	log.Printf(fmt.Sprintf("Result of \"%s\" is empty", exPath))
+	log.Printf(fmt.Sprintf("Result of \"%s\" is empty: %s", exPath, bt))
 	// log.Printf("Content of the HTML: %s\n", s)
 	os.Exit(1)
     }

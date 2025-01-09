@@ -8,17 +8,17 @@ set -e
 
 dir=$(basename "$(pwd)")
 if [ "$dir" = "test" ]; then
-    rel_dir=".."
-else
     rel_dir="."
+else
+    rel_dir=".."
 fi
 
 HTML_TESTFILE="scraping-test/result.html"
 
-parser="$(rel_dir)/mm-parsing"
+parser="$rel_dir/mm-parsing"
 assumed=$($parser $HTML_TESTFILE)
 
-html=$("$(rel_dir)"/test-request.sh)
+html=$("$rel_dir"/test-request.sh)
 current=$($parser $html)
 
 if [ "$assumed" = "$current" ]; then
