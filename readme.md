@@ -37,6 +37,7 @@ make
 4. Check if everything is right
 
 ```
+make test
 ./mm health
 ```
 

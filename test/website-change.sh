@@ -3,6 +3,25 @@
 
 set -e
 
+argnum=$#
+verbose=0
+
+print_warning() {
+    printf "WARN: %s\n" "$1"
+}
+
+
+# Verbose mode
+if [ $argnum -eq 1 ]; then
+    if [ "$1" = "-v" ]; then
+	verbose=1
+	echo "Verbose mode"
+    else
+	print_warning "Unrecognized argument"
+	exit 2
+    fi
+fi
+
 dir=$(basename "$(pwd)")
 if [ "$dir" = "test" ]; then
     rel_dir=".."
@@ -17,7 +36,21 @@ assumed=$(${rel_dir}/mm-parsing ${rel_dir}/scraping-test/result.html)
 current=$(${rel_dir}/test/test-request.sh)
 
 if [ "$assumed" = "$current" ]; then
-    exit 0
+    status=0
 else
-    exit 3
+    status=1
 fi
+
+if [ $verbose -eq 1 ]; then
+    echo "ASSUMED VALUE:"
+    echo "$assumed"
+    echo ""
+    echo ""
+    echo "======"
+    echo ""
+    echo ""
+    echo "CURRENT VALUE:"
+    echo "$current"
+fi
+
+exit $status
