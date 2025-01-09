@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 
-# This is the web parsing script which takes a html string from stdin 
+# This is the web parsing script which takes a html string as first argument
 # ,convert it to a JSON format and print the result to stdout
 
 # To test the output of this script, run
 # cat scraping-test/result.html | ./mm-parsing
 
 import sys, json
+import os
 
 def print_module_error(module_name):
     print(f"{module_name} is required! Maybe you forget to enable a virtual environment!")
@@ -162,11 +163,21 @@ class Document:
         """
         return json.dumps(self.get_result_pairs())
 
+def print_usage():
+    print(f"{os.path.basename(__file__)} HTML_FILE")
+
 
 def main():
-    # The html document from stdin
-    htmlContent = sys.stdin.read()
-    doc = Document(htmlContent)
+    if len(sys.argv) != 2:
+        print(f"{os.path.basename(__file__)} HTML_FILE")
+        sys.exit(8)
+    htmlContent = sys.argv[1]
+    if htmlContent == "":
+        sys.stderr.write("The content of the stdin is empty!")
+        sys.exit(1)
+    html_file = open(htmlContent, "r")
+    doc = Document(html_file)
+    html_file.close()
     print(doc.print_table())
 
 

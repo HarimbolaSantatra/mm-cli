@@ -38,8 +38,8 @@ func ConvertToParsedContent(jsonStr []byte) datatype.ParsedContent {
 
     err := json.Unmarshal(jsonStr, &m)
     if err != nil {
-	log.Printf("JSON in string format: %s", jsonStr)
-	log.Fatalf("JSON Unmarshaling error: %s", err)
+	log.Printf("JSON in string format: \"%s\"", jsonStr)
+	log.Fatalf("JSON Unmarshaling error: \"%s\"", err)
     }
 
     // Using the map `m` as intermediary is necessary because

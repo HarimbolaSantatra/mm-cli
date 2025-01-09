@@ -3,32 +3,19 @@
 
 set -e
 
-dir=$(basename $(pwd))
-if [ "$dir" = "test" ]; then
-    test_dir="."
-    rel_dir=".."
+dir=$(basename "$(pwd)") if [ "$dir" = "test" ]; then rel_dir=".."
 else
-    test_dir="test"
     rel_dir="."
 fi
 
-temp1="$(mktemp -p $test_dir --suffix=ASSUMED)"
-temp2="$(mktemp -p $test_dir --suffix=CURRENT)"
-
 # Assumed version
-cat ${rel_dir}/scraping-test/result.html | ${rel_dir}/mm-parsing > $temp1
+assumed=$(${rel_dir}/mm-parsing ${rel_dir}/scraping-test/result.html)
 
 # Current version
-${rel_dir}/test/test-request.sh | ${rel_dir}/mm-parsing > $temp2
+current=$(${rel_dir}/test/test-request.sh)
 
-# beautify temp files
-python3 -m json.tool $temp1 $temp1
-python3 -m json.tool $temp2 $temp2
-
-cmp -s $temp2 $temp1
-
-status=$?
-if [[ $status -eq 2 ]]; then
-    echo "cmp program error!"
-    exit $status
+if [ "$assumed" = "$current" ]; then
+    exit 0
+else
+    exit 3
 fi

@@ -24,7 +24,7 @@ test:
 	./test/test-python-env --verbose
 	python3 test/test.py
 	./test/website-change.sh
-	go test ./utils/
+	go test ./utils/ ./client/
 	goreleaser healthcheck
 
 .PHONY: uninstall
