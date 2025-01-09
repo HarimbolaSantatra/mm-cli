@@ -3,7 +3,9 @@
 
 set -e
 
-dir=$(basename "$(pwd)") if [ "$dir" = "test" ]; then rel_dir=".."
+dir=$(basename "$(pwd)")
+if [ "$dir" = "test" ]; then
+    rel_dir=".."
 else
     rel_dir="."
 fi

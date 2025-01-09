@@ -4,13 +4,21 @@
 # That's the case only if the website has been updated by the admin
 # and it does not have the same HTML layout anymore.
 
-HTML_TESTFILE="scraping-test/result.html"
-JSON_RESULT="scraping-test/parsing-result.json"
+set -e
 
-parser="../mm-parsing"
+dir=$(basename "$(pwd)")
+if [ "$dir" = "test" ]; then
+    rel_dir=".."
+else
+    rel_dir="."
+fi
+
+HTML_TESTFILE="scraping-test/result.html"
+
+parser="$(rel_dir)/mm-parsing"
 assumed=$($parser $HTML_TESTFILE)
 
-html=$(./test-request.sh)
+html=$("$(rel_dir)"/test-request.sh)
 current=$($parser $html)
 
 if [ "$assumed" = "$current" ]; then
