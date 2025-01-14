@@ -21,7 +21,9 @@ var searchCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		utils.PrintBanner()
 		if len(args) < 1 {
-			io.WriteString(os.Stderr, "You need to enter a search keyword!")
+			if _, err := io.WriteString(os.Stderr, "You need to enter a search keyword!"); err != nil {
+				log.Fatal(err)
+			}
 			os.Exit(1)
 		}
 		if len(args) > 1 {

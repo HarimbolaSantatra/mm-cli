@@ -32,7 +32,7 @@ func GetVersion() string {
 }
 
 func PrintRuler() {
-	fmt.Println("\n" + ruler + "\n")
+	fmt.Println("\n" + ruler)
 }
 
 func PrintBanner() {
