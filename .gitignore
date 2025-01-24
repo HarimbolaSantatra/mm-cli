@@ -12,6 +12,7 @@ dist/
 test/tmp.*
 *.tmp
 *.temp
+tmp/
 
 # Debug
 __debug*

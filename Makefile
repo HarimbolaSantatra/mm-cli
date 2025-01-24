@@ -3,7 +3,7 @@ INSTALL		= $(HOME)/.local/bin
 scrap_script 	= mm-parsing
 installed	= $(INSTALL)/$(scrap_script) $(INSTALL)/$(OUT)
 OUT 		= mm
-TMPDIR 		= test/
+TMPDIR 		= tmp/
 
 endpoint 	= https://malagasyword.org
 
@@ -25,8 +25,8 @@ install: $(OUT)
 test:
 	wget -q --spider $(endpoint)
 	./test/test-python-env --verbose
-	python3 test/test.py
 	./test/website-change.sh
+	./test.sh
 	go test ./utils/ ./client/
 	goreleaser healthcheck
 

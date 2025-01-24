@@ -49,7 +49,7 @@ else
 fi
 
 # Assumed version
-assumed=$(cat ${rel_dir}/scraping-test/result.html)
+assumed=$(cat ${rel_dir}/result.html)
 
 # Current version
 current=$(${rel_dir}/test/test-request.sh)
@@ -57,7 +57,7 @@ current=$(${rel_dir}/test/test-request.sh)
 if [ "$assumed" = "$current" ]; then
     status=0
 else
-    status=1
+    status=6
 fi
 
 if [ $compare_mode -eq 1 ]; then
