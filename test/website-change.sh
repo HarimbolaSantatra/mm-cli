@@ -5,19 +5,38 @@ set -e
 
 argnum=$#
 verbose=0
+compare_mode=0
 
 print_warning() {
     printf "WARN: %s\n" "$1"
 }
 
+print_usage() {
+    echo "$0 [-d | -v]"
+}
 
-# Verbose mode
+compare_strings() {
+    # Compare if two string are the same and print the difference
+    echo "Compare mode"
+    echo "Old file is first; new file is last"
+    echo ""
+    old=$(mktemp)
+    new=$(mktemp)
+    echo "$1" > $old
+    echo "$2" > $new
+    diff $old $new
+}
+
+# Add verbose mode and compare mode
 if [ $argnum -eq 1 ]; then
     if [ "$1" = "-v" ]; then
 	verbose=1
 	echo "Verbose mode"
+    elif [ "$1" = "-d" ]; then
+	compare_mode=1
     else
 	print_warning "Unrecognized argument"
+	print_usage
 	exit 2
     fi
 fi
@@ -30,7 +49,7 @@ else
 fi
 
 # Assumed version
-assumed=$(${rel_dir}/mm-parsing ${rel_dir}/scraping-test/result.html)
+assumed=$(cat ${rel_dir}/scraping-test/result.html)
 
 # Current version
 current=$(${rel_dir}/test/test-request.sh)
@@ -40,6 +59,11 @@ if [ "$assumed" = "$current" ]; then
 else
     status=1
 fi
+
+if [ $compare_mode -eq 1 ]; then
+    compare_strings "$assumed" "$current"
+fi
+
 
 if [ $verbose -eq 1 ]; then
     echo "ASSUMED VALUE:"

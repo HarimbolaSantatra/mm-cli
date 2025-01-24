@@ -5,6 +5,8 @@ installed	= $(INSTALL)/$(scrap_script) $(INSTALL)/$(OUT)
 OUT 		= mm
 TMPDIR 		= test/
 
+endpoint 	= https://malagasyword.org
+
 mm: 
 	go build .
 
@@ -21,6 +23,7 @@ install: $(OUT)
 
 .PHONY: test
 test:
+	wget -q --spider $(endpoint)
 	./test/test-python-env --verbose
 	python3 test/test.py
 	./test/website-change.sh
