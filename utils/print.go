@@ -7,10 +7,10 @@ import (
 	"strings"
 )
 
-var Reset = "\033[0m" 
-var Red = "\033[31m" 
-var Green = "\033[32m" 
-var BrightGreen = "\033[92m" 
+var Reset = "\033[0m"
+var Red = "\033[31m"
+var Green = "\033[32m"
+var BrightGreen = "\033[92m"
 var White = "\033[97m"
 
 const banner = `
@@ -34,7 +34,7 @@ func GetVersion() string {
 }
 
 func PrintRuler() {
-    fmt.Println("\n" + ruler)
+	fmt.Println("\n" + ruler)
 }
 
 func PrintBanner() {
@@ -59,40 +59,39 @@ func Clean(txt string) string {
 // Print a simple line with a title in bold and a content in normal text
 func PrintKeyAndValue(title, content string, isSubTitle bool) string {
 
-    var sb strings.Builder
+	var sb strings.Builder
 
-    var color string
-    if isSubTitle {
-	color = BrightGreen
-    } else { 
-	color = Green
-    }
+	var color string
+	if isSubTitle {
+		color = BrightGreen
+	} else {
+		color = Green
+	}
 
-    if strings.Compare(content, "") == 0 {
-	// just print the title in color and ignore the content
-	sb.WriteString(fmt.Sprintf("%s- %s: %s", color, title, Reset))
-    } else {
-	// print the title and the content
-	sb.WriteString(fmt.Sprintf("%s- %s: %s%s", color, title, Reset, Clean(content)))
-    }
-    return sb.String()
+	if strings.Compare(content, "") == 0 {
+		// just print the title in color and ignore the content
+		sb.WriteString(fmt.Sprintf("%s- %s: %s", color, title, Reset))
+	} else {
+		// print the title and the content
+		sb.WriteString(fmt.Sprintf("%s- %s: %s%s", color, title, Reset, Clean(content)))
+	}
+	return sb.String()
 }
 
 // Print an item in a unordered list
 func PrintUnListItem(title, content string) string {
-    return Green + title + ": " + Reset + Clean(strings.Replace(content, ",\n", "\n\t- ", -1))
+	return Green + title + ": " + Reset + Clean(strings.Replace(content, ",\n", "\n\t- ", -1))
 }
-
 
 // Print the final content, which should be the result of the HTML parsing
 // Input: an empty interface. This should contain the key `k` and value `v` of the JSON
 func PrintResult(parsedContent datatype.ParsedContent, debug bool) {
 
-        fmt.Println(PrintKeyAndValue("Speech Content", parsedContent.Speech, false))
-        fmt.Println(PrintKeyAndValue("Malagasy explanation", parsedContent.MlgExplication, false))
-        fmt.Println(PrintKeyAndValue("French explanation", parsedContent.FrExplication, false))
-        fmt.Println(PrintKeyAndValue("Vocabulary", parsedContent.Vocabulary, false))
-        fmt.Println(PrintKeyAndValue("Morphology", parsedContent.Morphology, false))
-        fmt.Println(PrintKeyAndValue("Analogs", parsedContent.Analogs, false))
+	fmt.Println(PrintKeyAndValue("Speech Content", parsedContent.Speech, false))
+	fmt.Println(PrintKeyAndValue("Malagasy explanation", parsedContent.MlgExplication, false))
+	fmt.Println(PrintKeyAndValue("French explanation", parsedContent.FrExplication, false))
+	fmt.Println(PrintKeyAndValue("Vocabulary", parsedContent.Vocabulary, false))
+	fmt.Println(PrintKeyAndValue("Morphology", parsedContent.Morphology, false))
+	fmt.Println(PrintKeyAndValue("Analogs", parsedContent.Analogs, false))
 
 }
