@@ -11,6 +11,7 @@ type ParsedContent struct {
     Vocabulary string `json:"Vocabulary\u00a0"`
     Morphology string `json:"Morphology\u00a0"`
     Analogs string `json:"Analogs\u00a0"`
+    Json string
 }
 
 

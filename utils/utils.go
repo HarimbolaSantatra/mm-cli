@@ -52,5 +52,7 @@ func ConvertToParsedContent(jsonStr []byte) datatype.ParsedContent {
     jsonContent.Morphology = m["Morphology\u00a0"]
     jsonContent.Analogs = m["Analogs\u00a0"]
 
+    jsonContent.Json = string(jsonStr)
+
     return jsonContent
 }
