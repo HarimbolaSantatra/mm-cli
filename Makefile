@@ -1,8 +1,8 @@
 DIST		= dist
 INSTALL		= $(HOME)/.local/bin
 scrap_script 	= mm-parsing
-installed	= $(INSTALL)/$(scrap_script) $(INSTALL)/$(OUT)
 OUT 		= mm
+installed	= $(INSTALL)/$(scrap_script) $(INSTALL)/$(OUT)
 TMPDIR 		= tmp/
 
 endpoint 	= https://malagasyword.org
@@ -30,6 +30,7 @@ test:
 	go test ./utils/ ./client/
 	goreleaser healthcheck
 
-.PHONY: uninstall
+.PHONY: uninstall remove
+remove: uninstall
 uninstall: $(installed)
-	rm $(installed)
+	rm -v $(installed)
