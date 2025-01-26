@@ -1,7 +1,6 @@
 package client
 
 import (
-    "fmt"
     "log"
     "os"
     "os/exec"
@@ -16,26 +15,22 @@ func LogPythonError(module string) {
 }
 
 
-const scrapingEx = "mm-parsing" // Name of the scraping executable
+const scrapingEx = "mm-parsing"
 
 
 // Use `./mm-parsing` to get a HTML formatted string and return the JSON format
-// Input: a string in HTML format
+// Input: string in HTML format
 // Output: the response of the request in JSON format
 func ParseString(s string) datatype.ParsedContent {
 
-    // TODO: edit this relative path
-    dirname, _ := os.Executable()
-    exPath := fmt.Sprintf("%s/%s", dirname, scrapingEx)
-
-    // Check if the executable exist
-    _, err := os.Stat(exPath)
+    // Check if parsing script exist
+    _, err := exec.LookPath(scrapingEx)
     if err != nil {
-	log.Fatalf("Error: %s", err)
+	log.Fatalf("%s is not found: %s.\n\nRun 'make install' to install it on PATH.\n\n", scrapingEx, err)
     }
 
     // Execute command and handle error
-    cmd := exec.Command(exPath, s)
+    cmd := exec.Command(scrapingEx, s)
     if cmd.Err != nil {
 	log.Fatalf("Error in executing %s: %s", scrapingEx, cmd.Err.Error())
     }
@@ -50,7 +45,7 @@ func ParseString(s string) datatype.ParsedContent {
 
     // Handle empty output error
     if len(bt) == 0 {
-	log.Printf(fmt.Sprintf("Result of \"%s\" is empty: %s", exPath, bt))
+            log.Printf("Input HTML is:\n%s\n\nResult of \"%s\" is empty.\nResult is: '%s'\n", s, scrapingEx, bt)
 	// log.Printf("Content of the HTML: %s\n", s)
 	os.Exit(1)
     }

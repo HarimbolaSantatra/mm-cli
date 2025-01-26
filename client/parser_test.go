@@ -1,7 +1,6 @@
 package client
 
 import (
-    "os"
     "strings"
     "testing"
 
@@ -10,17 +9,11 @@ import (
 
 func TestParseString(t *testing.T) {
 
-    htmlFile := "../scraping-test/result.html"
+    htmlFile := "../result.html"
 
-    // TODO: this should give error if the file doesn't exist
-    b, err := os.ReadFile(htmlFile)
-    if err != nil {
-	t.Errorf("Error encountered: \"%s\"", err)
-    }
+    content := ParseString(string(htmlFile))
 
-    content := ParseString(string(b))
-
-    expected := datatype.ParsedContent{Speech: "Foobar", Vocabulary: "BarBaz"}
+    expected := datatype.ParsedContent{Speech: "2noun", Vocabulary: "5Economy: food"}
 
     if strings.Compare(content.Speech, expected.Speech) != 0 {
 	t.Errorf("Expected %s\nActual: %s", expected.Speech, content.Speech)
