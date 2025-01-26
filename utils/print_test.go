@@ -24,9 +24,9 @@ func TestClean(t *testing.T) {
 func TestPrintKeyAndValue(t *testing.T) {
     const title = "Soratra maintso"
     const content = "soratra fotsy"
-    expected := fmt.Sprintf("\t%s- %s: %s%s", Green, title, Reset, content)
+    expected := fmt.Sprintf("%s- %s: %s%s", Green, title, Reset, content)
     x := PrintKeyAndValue(title, content, false)
     if strings.Compare(x, expected) != 0 {
-	t.Errorf("Got: \"%s\"\nExpecting: \"%s\"", x, expected)
+	t.Errorf("\nGot: \"%s\"\nExpecting: \"%s\"", x, expected)
     }
 }
