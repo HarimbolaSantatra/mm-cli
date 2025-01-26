@@ -11,7 +11,7 @@ func TestParseString(t *testing.T) {
 
     htmlFile := "../result.html"
 
-    content := ParseString(string(htmlFile))
+    content := ParseString(string(htmlFile), true)
 
     expected := datatype.ParsedContent{Speech: "2noun", Vocabulary: "5Economy: food"}
 

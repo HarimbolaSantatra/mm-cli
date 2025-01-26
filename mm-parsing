@@ -8,6 +8,8 @@
 
 import sys, json
 import os
+import argparse
+
 
 def print_module_error(module_name):
     print(f"{module_name} is required! Maybe you forget to enable a virtual environment!")
@@ -167,18 +169,43 @@ def print_usage():
     print(f"{os.path.basename(__file__)} HTML_FILE")
 
 
-def main():
-    if len(sys.argv) != 2:
-        print_usage()
-        sys.exit(8)
-    htmlContent = sys.argv[1]
-    if htmlContent == "":
+def parse_file_name(html_filename):
+    """
+    Parse the content of the html file 'html_filaname'
+    """
+    if html_filename == "":
         sys.stderr.write("The content of the stdin is empty!")
         sys.exit(1)
-    html_file = open(htmlContent, "r")
-    doc = Document(html_file)
-    html_file.close()
+    with open(html_filename, "r") as html_file:
+        doc = Document(html_file)
     print(doc.print_table())
+
+
+def parse_file_content(html_content):
+    """
+    Parse the html string 'html'
+    """
+    doc = Document(html_content)
+    print(doc.print_table())
+
+
+
+def main():
+
+    parser = argparse.ArgumentParser(
+                    prog='mm-parsing',
+                    description='Take html and print parsed content in JSON format',
+                    epilog='CLI version of malagasyword.org')
+
+    parser.add_argument('file_nc', help='Name or content of the html file')
+    parser.add_argument('-f', '--file', action='store_true', help='file_nc is an html file')
+    parser.add_argument('-c', '--content', action='store_true', default=True, help='file_nc is an html string')
+
+    args = parser.parse_args()
+    if args.file:
+        parse_file_name(args.file_nc)
+    else:
+        parse_file_content(args.file_nc)
 
 
 if __name__ == '__main__':

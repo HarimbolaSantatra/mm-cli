@@ -37,7 +37,7 @@ var searchCmd = &cobra.Command{
       htmlResult := client.Search(args[0])
 
       // extract the JSON from the html result in string format
-      jsonContent := client.ParseString(htmlResult) 
+      jsonContent := client.ParseString(htmlResult, false) 
 
       if Debug {
 	  jsonContent.DebugPrint()
