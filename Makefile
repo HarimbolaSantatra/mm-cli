@@ -1,9 +1,11 @@
 DIST		= dist
 INSTALL		= $(HOME)/.local/bin
 scrap_script 	= mm-parsing
-installed	= $(INSTALL)/$(scrap_script) $(INSTALL)/$(OUT)
 OUT 		= mm
-TMPDIR 		= test/
+installed	= $(INSTALL)/$(scrap_script) $(INSTALL)/$(OUT)
+TMPDIR 		= tmp/
+
+endpoint 	= https://malagasyword.org
 
 mm: 
 	go build .
@@ -21,11 +23,14 @@ install: $(OUT)
 
 .PHONY: test
 test:
+	wget -q --spider $(endpoint)
 	./test/test-python-env --verbose
-	python3 test/test.py
 	./test/website-change.sh
+	./test.sh
+	go test ./utils/ ./client/
 	goreleaser healthcheck
 
-.PHONY: uninstall
+.PHONY: uninstall remove
+remove: uninstall
 uninstall: $(installed)
-	rm $(installed)
+	rm -v $(installed)

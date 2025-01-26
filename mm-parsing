@@ -1,13 +1,32 @@
 #!/usr/bin/env python
 
-# This script takes a html string and
-# print in JSON format to the stdout the result of the web parsing 
+# This is the web parsing script which takes a html file as argument and print
+# the JSON format to stdout
 
-import os, sys, json
-import typing
+# To test the output of this script, run
+# ./mm-parsing scraping-test/result.html
+
+import sys, json
+import os
+import argparse
+
 
 def print_module_error(module_name):
     print(f"{module_name} is required! Maybe you forget to enable a virtual environment!")
+
+
+def assert_type(element, expected_type):
+    """
+    Type assertion and throw an error
+    ---
+    Args:
+        element: the variable to check
+        expected_type: the expected type
+    """
+    if type(element) != expected_type:
+        print(f"Type of the element is {type(element)} and not {expected_type}", file=sys.stderr)
+        sys.exit(1)
+
 
 try:
     import bs4
@@ -21,6 +40,19 @@ def get_class(tag, class_name) -> bs4.Tag :
     Search for a tag who has a class 'class_name'
     """
     return tag.find("span", class_=class_name)
+
+# Custom exception
+class TagNotFound(Exception):
+    """
+    Raise when BS4 do not find a result for a specific tag
+    For example, if the array returned by `find_all` is of length 0
+    """
+
+    def __init__(self, value) -> None:
+        self.value = value
+
+    def __str__(self) -> str:
+        return f"BS4 can't find {self.value}"
 
 
 class Document:
@@ -64,42 +96,66 @@ class Document:
         """
         Get all the pair of result.
         e.g:
-            Entrée: lakozia
-            Partie du discours: nom
-            Vocabulaire Economie: alimentation
+            Entry: lakozia
+            Part of speech: nom
+            Vocabulary Economie: alimentation
 
-        We need to get a table tag, which some particular attribute:
-            - name="td"
-            - width="20%"
+        We need to get td tags, which some particular attribute:
+            - width="18%"
             - align="right"
 
         Returns
         -------
-        list
-            Each row is a key-value pair:
+        dictionary
                 {
-                    "label": "Explication en malgache",
-                    "text": "Trano fanaovana nahandro"
+                    "label": "text",
+                    "Explication en malgache": "Trano fanaovana nahandro"
+                    ...
                 }
         """
         tables: list = self.soup.find_all(name="td", width="18%", align="right")
         new_entry = {}
 
         for table in tables[:-1]:
-            # table[4:] because we do not want to print the first 4 <table>,
-            # which is the navigation menu and some unknown BS!
-            # TODO: this needs a hard edit cuz that guy was fkn lazy!
 
             # remove <span class="minute">
             minute = table.next_sibling.next_sibling.find("span", class_="minute")
             if minute != None:
                 minute.extract()
 
-            # take a look at the html file (result.html) to understand this section
-            # put next_sibling 2 times because the first sibling is a whitespace
+            # Flatten the <td> tag because it can contains multiple children tag
+            # Take a look at the html file (result.html) to understand this section
+            # `table.string` is the key
+            # `next_sibling` property is applied 2 times because the first sibling is a whitespace
             # Look at https://www.crummy.com/software/BeautifulSoup/bs4/doc/#next-sibling-and-previous-sibling
-            new_entry[table.string] = "".join(table.next_sibling.next_sibling.stripped_strings)
 
+            # if the key (`table.string`) is 'Morphologie', create a child dict because it contains sub key
+            # {
+            #    "Morphologie": { 
+            #      "key": "value",
+            #      ... 
+            #    }
+            # }
+            if 'Morphologie' in table.string :
+                # Get <span class='mgtr'>
+                subkeys = table.next_sibling.next_sibling.find_all("span", class_="mgtr")
+
+                # Type Assertion: check if type is a list
+                assert_type(subkeys, bs4.element.ResultSet)
+
+                new_entry[table.string] = {}
+                for s in subkeys:
+                    assert_type(s, bs4.Tag)
+
+                    # Convert the generator into a list
+                    v = list( s.parent.next_sibling.stripped_strings )
+
+                    new_entry[table.string][str(s.string)] = v
+
+            else:
+                new_entry[table.string] = "".join(table.next_sibling.next_sibling.stripped_strings)
+
+        assert_type(new_entry, dict)
 
         return new_entry
 
@@ -109,17 +165,47 @@ class Document:
         """
         return json.dumps(self.get_result_pairs())
 
+def print_usage():
+    print(f"{os.path.basename(__file__)} HTML_FILE")
+
+
+def parse_file_name(html_filename):
+    """
+    Parse the content of the html file 'html_filaname'
+    """
+    if html_filename == "":
+        sys.stderr.write("The content of the stdin is empty!")
+        sys.exit(1)
+    with open(html_filename, "r") as html_file:
+        doc = Document(html_file)
+    print(doc.print_table())
+
+
+def parse_file_content(html_content):
+    """
+    Parse the html string 'html'
+    """
+    doc = Document(html_content)
+    print(doc.print_table())
+
+
 
 def main():
-    argv = sys.argv
 
-    if len(argv) != 2:
-        print("Incorrect number of arguments!")
-        print("Usage: {} STRING".format(argv[0]))
-        sys.exit(1)
+    parser = argparse.ArgumentParser(
+                    prog='mm-parsing',
+                    description='Take html and print parsed content in JSON format',
+                    epilog='CLI version of malagasyword.org')
 
-    doc = Document(argv[1])
-    print(doc.print_table())
+    parser.add_argument('file_nc', help='Name or content of the html file')
+    parser.add_argument('-f', '--file', action='store_true', help='file_nc is an html file')
+    parser.add_argument('-c', '--content', action='store_true', default=True, help='file_nc is an html string')
+
+    args = parser.parse_args()
+    if args.file:
+        parse_file_name(args.file_nc)
+    else:
+        parse_file_content(args.file_nc)
 
 
 if __name__ == '__main__':
