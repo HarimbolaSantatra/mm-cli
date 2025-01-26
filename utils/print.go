@@ -1,10 +1,10 @@
 package utils
 
 import (
-    "fmt"
-    "regexp"
-    "strings"
-    "mm/datatype"
+	"fmt"
+	"mm/datatype"
+	"regexp"
+	"strings"
 )
 
 var Reset = "\033[0m" 
@@ -70,10 +70,10 @@ func PrintKeyAndValue(title, content string, isSubTitle bool) string {
 
     if strings.Compare(content, "") == 0 {
 	// just print the title in color and ignore the content
-	sb.WriteString(fmt.Sprintf("%s%s: %s", color, title, Reset))
+	sb.WriteString(fmt.Sprintf("%s- %s: %s", color, title, Reset))
     } else {
 	// print the title and the content
-	sb.WriteString(fmt.Sprintf("\t%s- %s: %s%s", color, title, Reset, Clean(content)))
+	sb.WriteString(fmt.Sprintf("%s- %s: %s%s", color, title, Reset, Clean(content)))
     }
     return sb.String()
 }
@@ -88,11 +88,11 @@ func PrintUnListItem(title, content string) string {
 // Input: an empty interface. This should contain the key `k` and value `v` of the JSON
 func PrintResult(parsedContent datatype.ParsedContent, debug bool) {
 
-    PrintKeyAndValue("Speech Content", parsedContent.Speech, false)
-    PrintKeyAndValue("Malagasy explanation", parsedContent.MlgExplication, false)
-    PrintKeyAndValue("French explanation", parsedContent.FrExplication, false)
-    PrintKeyAndValue("Vocabulary", parsedContent.Vocabulary, false)
-    PrintKeyAndValue("Morphology", parsedContent.Morphology, false)
-    PrintKeyAndValue("Analogs", parsedContent.Analogs, false)
+        fmt.Println(PrintKeyAndValue("Speech Content", parsedContent.Speech, false))
+        fmt.Println(PrintKeyAndValue("Malagasy explanation", parsedContent.MlgExplication, false))
+        fmt.Println(PrintKeyAndValue("French explanation", parsedContent.FrExplication, false))
+        fmt.Println(PrintKeyAndValue("Vocabulary", parsedContent.Vocabulary, false))
+        fmt.Println(PrintKeyAndValue("Morphology", parsedContent.Morphology, false))
+        fmt.Println(PrintKeyAndValue("Analogs", parsedContent.Analogs, false))
 
 }
