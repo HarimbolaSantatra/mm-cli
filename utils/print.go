@@ -29,8 +29,8 @@ const mmHomepage = "https://malagasyword.org/bins/homePage"
 const sourceCodeLink = "https://github.com/HarimbolaSantatra/mm-cli"
 
 func GetVersion() string {
-    version := "0.1b"
-    return version
+	version := "0.1b"
+	return version
 }
 
 func PrintRuler() {
@@ -38,22 +38,22 @@ func PrintRuler() {
 }
 
 func PrintBanner() {
-    PrintRuler()
-    fmt.Printf("%s", banner)
-    fmt.Println(Red, "Malagasy Word homepage:", Reset , mmHomepage)
-    fmt.Println(Red, "Malagasy Word contributors:", Reset, mmContributorLink)
-    fmt.Println(Red, "Source code:", Reset, sourceCodeLink)
-    fmt.Println(Red, "Version:", Reset, GetVersion())
-    PrintRuler()
+	PrintRuler()
+	fmt.Printf("%s", banner)
+	fmt.Println(Red, "Malagasy Word homepage:", Reset, mmHomepage)
+	fmt.Println(Red, "Malagasy Word contributors:", Reset, mmContributorLink)
+	fmt.Println(Red, "Source code:", Reset, sourceCodeLink)
+	fmt.Println(Red, "Version:", Reset, GetVersion())
+	PrintRuler()
 }
 
 // Remove source reference (format `[...]` from a string) and numbers
 // Input: string
 // Return a new string
 func Clean(txt string) string {
-    const rx = "\\[.+?\\]|\\d+?" // regex for [..] and numbers
-    re := regexp.MustCompile(rx)
-    return re.ReplaceAllString(txt, "")
+	const rx = "\\[.+?\\]|\\d+?" // regex for [..] and numbers
+	re := regexp.MustCompile(rx)
+	return re.ReplaceAllString(txt, "")
 }
 
 // Print a simple line with a title in bold and a content in normal text

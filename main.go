@@ -1,9 +1,9 @@
 package main
 
 import (
-    "mm/cmd"
+	"mm/cmd"
 )
 
 func main() {
-    cmd.Execute()
+	cmd.Execute()
 }

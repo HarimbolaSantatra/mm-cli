@@ -11,9 +11,8 @@ import (
 
 // Handle error related to Python requirements
 func LogPythonError(module string) {
-    log.Fatalf("Python module \"%s\" not found! Create a virtual environment and install python packages with 'pip install -r requirements.txt'", module)
+	log.Fatalf("Python module \"%s\" not found! Create a virtual environment and install python packages with 'pip install -r requirements.txt'", module)
 }
-
 
 const scrapingEx = "mm-parsing"
 

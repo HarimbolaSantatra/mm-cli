@@ -12,9 +12,8 @@ import (
 )
 
 func init() {
-    rootCmd.AddCommand(searchCmd)
+	rootCmd.AddCommand(searchCmd)
 }
-
 
 var searchCmd = &cobra.Command{
   Use:   "search KEYWORD",
@@ -47,7 +46,7 @@ var searchCmd = &cobra.Command{
       // Print the result
       utils.PrintResult(jsonContent, Debug)
 
-      utils.PrintRuler()
+		utils.PrintRuler()
 
-  },
+	},
 }

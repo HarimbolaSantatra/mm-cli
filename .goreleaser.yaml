@@ -42,7 +42,7 @@ archives:
 
     files:
       - readme.md
-      - mm-scraping
+      - mm-parsing
       - CHANGELOG*
       - license*
 
