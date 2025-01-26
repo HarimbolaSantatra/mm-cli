@@ -13,6 +13,7 @@ var rootCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		// Do Stuff Here
 	},
+        Version: "0.3",
 }
 
 var Debug bool

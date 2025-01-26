@@ -28,11 +28,6 @@ const mmContributorLink = "https://malagasyword.org/bins/contributors"
 const mmHomepage = "https://malagasyword.org/bins/homePage"
 const sourceCodeLink = "https://github.com/HarimbolaSantatra/mm-cli"
 
-func GetVersion() string {
-	version := "0.1b"
-	return version
-}
-
 func PrintRuler() {
     fmt.Println("\n" + ruler)
 }
@@ -43,7 +38,6 @@ func PrintBanner() {
 	fmt.Println(Red, "Malagasy Word homepage:", Reset, mmHomepage)
 	fmt.Println(Red, "Malagasy Word contributors:", Reset, mmContributorLink)
 	fmt.Println(Red, "Source code:", Reset, sourceCodeLink)
-	fmt.Println(Red, "Version:", Reset, GetVersion())
 	PrintRuler()
 }
 
