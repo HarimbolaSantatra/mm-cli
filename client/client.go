@@ -6,6 +6,8 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+        "os"
+        "os/exec"
 	"strings"
 	"time"
 )
@@ -69,4 +71,16 @@ func Search(keyword string) string {
 	defer resp.Body.Close()
 
 	return string(body)
+}
+
+
+// Open in a browser
+func OpenBrowser() {
+        cmd := exec.Command("open", homepageEnd)
+        err := cmd.Run()
+        if err != nil {
+                log.Fatalf("Cannot open the browser. Error found: %s", err)
+        } else {
+                os.Exit(0)
+        }
 }
